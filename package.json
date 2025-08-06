@@ -34,8 +34,8 @@
   },
   "n8n": {
     "nodes": [
-      "dist/nodes/PrismaAIRS.node.js",
-      "dist/nodes/PrismaAIRSResponse.node.js"
+      "dist/nodes/PrismaAIRSPromptCheck.node.js",
+      "dist/nodes/PrismaAIRSResponseCheck.node.js"
     ],
     "credentials": [
       "dist/credentials/PrismaAIRSCredential.js"
