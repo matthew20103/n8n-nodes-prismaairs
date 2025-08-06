@@ -118,7 +118,7 @@ This node is designed to scan incoming prompts from users *before* they are sent
 
 ```mermaid
 graph TD
-    A[Trigger (e.g.\, Webhook, Chat Input)] --> B(Prisma AIRS Prompt Check);
+    A(Trigger e.g., Webhook, Chat Input) --> B(Prisma AIRS Prompt Check);
     B --> C{If Prompt Allowed?};
     C -- Yes (action == 'allow') --> D(Send Prompt to AI Model);
     C -- No (output exists) --> E(Send Error Message to User);
