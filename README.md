@@ -122,7 +122,6 @@ graph TD
     B --> C{If Prompt Allowed?};
     C -- Yes (action == 'allow') --> D(Send Prompt to AI Model);
     C -- No (output exists) --> E(Send Error Message to User);
-
 ```
 
 ### PrismaAIRSResponseCheck Node
@@ -193,7 +192,6 @@ graph TD
     B --> C{If Response Allowed?};
     C -- Yes (output is AI response) --> D(Send AI Response to User);
     C -- No (output is error message) --> E(Send Error Message to User);
-
 ```
 
 ## Development
