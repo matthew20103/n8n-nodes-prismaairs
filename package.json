@@ -1,0 +1,58 @@
+{
+  "name": "n8n-nodes-prismaairs",
+  "version": "1.0.0",
+  "description": "n8n community node for Palo Alto Networks AIRS (AI Security) for Prompt and Response checking.",
+  "keywords": [
+    "n8n",
+    "n8n-nodes",
+    "prisma",
+    "airs",
+    "paloalto",
+    "security",
+    "ai",
+    "llm",
+    "prompt",
+    "response"
+  ],
+  "homepage": "https://github.com/matthew20103/n8n-nodes-prismaairs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthew20103/n8n-nodes-prismaairs.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Matthew Wan",
+    "email": "mwan@paloaltonetworks.com"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "eslint nodes credentials",
+    "lint:fix": "eslint nodes credentials --fix",
+    "prepublishOnly": "npm run build && npm run lint"
+  },
+  "n8n": {
+    "nodes": [
+      "dist/nodes/PrismaAIRS.node.js",
+      "dist/nodes/PrismaAIRSResponse.node.js"
+    ],
+    "credentials": [
+      "dist/credentials/PrismaAIRSCredential.js"
+    ]
+  },
+  "devDependencies": {
+    "@n8n/eslint-config": "^1.0.0",
+    "@n8n/n8n-workflow": "^1.0.0",
+    "@types/express": "^4.17.6",
+    "@types/node": "^18.16.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "eslint": "^8.39.0",
+    "prettier": "^2.8.8",
+    "tslib": "^2.5.0",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "axios": "^1.7.2"
+  }
+}
