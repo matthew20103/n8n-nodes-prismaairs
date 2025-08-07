@@ -3,10 +3,8 @@ import {
   INodeTypeDescription,
   IHttpRequestOptions,
   IHttpRequestMethods,
-  IHttpRequestUrl,
   NodePropertyTypes,
-  ICredentialType,
-  INodeProperties,
+  NodeConnectionType, // Added NodeConnectionType import
   IExecuteFunctions,
 } from 'n8n-workflow';
 
@@ -22,8 +20,8 @@ export class PrismaAIRSResponseCheck implements INodeType {
     defaults: {
       name: 'Prisma AIRS Response Check',
     },
-    inputs: ['main'],
-    outputs: ['main'],
+    inputs: [NodeConnectionType.Main], // Fixed: Changed to NodeConnectionType.Main
+    outputs: [NodeConnectionType.Main], // Fixed: Changed to NodeConnectionType.Main
     credentials: [
       {
         name: 'prismaAIRSCredential',
@@ -87,12 +85,13 @@ export class PrismaAIRSResponseCheck implements INodeType {
       const aiModelName = this.getNodeParameter('aiModelName', itemIndex) as string;
       const context = this.getNodeParameter('context', itemIndex) as string;
 
-      const credentials = await this.getCredentials('prismaAIRSCredential') as ICredentialType;
-      const apiKey = credentials.apiKey as string;
+      // Fixed: Explicitly cast credentials to ensure apiKey property is recognized
+      const credentials = await this.getCredentials('prismaAIRSCredential') as { apiKey: string };
+      const apiKey = credentials.apiKey;
 
       const requestOptions: IHttpRequestOptions = {
         method: 'POST' as IHttpRequestMethods,
-        url: 'https://service.api.aisecurity.paloaltonetworks.com/v1/scan/sync/request' as IHttpRequestUrl,
+        url: 'https://service.api.aisecurity.paloaltonetworks.com/v1/scan/sync/request', // Removed IHttpRequestUrl type
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': apiKey, // Use the API key from credentials
@@ -118,7 +117,8 @@ export class PrismaAIRSResponseCheck implements INodeType {
       };
 
       try {
-        const response = await this.httpRequest(requestOptions);
+        // Fixed: Use this.helpers.httpRequest
+        const response = await this.helpers.httpRequest(requestOptions);
 
         // Process the AIRS response
         let action = 'allow'; // Default action
@@ -160,12 +160,12 @@ export class PrismaAIRSResponseCheck implements INodeType {
             },
           });
         }
-      } catch (error) {
+      } catch (error: unknown) { // Fixed: Explicitly type error as unknown
         // Handle API call errors
         console.error('Prisma AIRS API Error:', error);
         returnData.push({
           json: {
-            output: `Error calling Prisma AIRS API: ${error.message || 'Unknown error'}`,
+            output: `Error calling Prisma AIRS API: ${(error as Error).message || 'Unknown error'}`, // Fixed: Cast error to Error
           },
         });
       }
