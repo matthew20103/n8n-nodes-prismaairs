@@ -26,8 +26,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "npx tsc",  <-- Changed this line
-    "dev": "npx tsc --watch", <-- Changed this line
+    "build": "npx tsc",
+    "dev": "npx tsc --watch",
     "prepublishOnly": "npm run build"
   },
   "n8n": {
