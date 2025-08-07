@@ -14,15 +14,15 @@
     "prompt",
     "response"
   ],
-  "homepage": "https://github.com/your-github-username/n8n-nodes-prismaairs",
+  "homepage": "https://github.com/matthew20103/n8n-nodes-prismaairs",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-github-username/n8n-nodes-prismaairs.git"
+    "url": "git+https://github.com/matthew20103/n8n-nodes-prismaairs.git"
   },
   "license": "MIT",
   "author": {
-    "name": "Your Name",
-    "email": "your-email@example.com"
+    "name": "Matthew Wan",
+    "email": "mwan@paloaltonetworks.com"
   },
   "main": "index.js",
   "scripts": {
