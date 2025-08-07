@@ -18,6 +18,7 @@
   },
   "include": [
     "nodes/**/*.ts"
+    "credentials/**/*.ts"
   ],
   "exclude": [
     "node_modules",
