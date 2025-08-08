@@ -1,9 +1,0 @@
-.git
-.gitignore
-node_modules
-dist
-src
-*.ts
-.eslintrc.js
-tsconfig.json
-package-lock.json
