@@ -24,7 +24,7 @@ export class PrismaAIRSPromptCheck implements INodeType {
     outputs: [NodeConnectionType.Main], // Fixed: Changed to NodeConnectionType.Main
     credentials: [
       {
-        name: 'prismaAIRSCredential',
+        name: 'prismaAIRSCredentials',
         required: true,
       },
     ],
@@ -86,7 +86,7 @@ export class PrismaAIRSPromptCheck implements INodeType {
       const context = this.getNodeParameter('context', itemIndex) as string;
 
       // Fixed: Explicitly cast credentials to ensure apiKey property is recognized
-      const credentials = await this.getCredentials('prismaAIRSCredential') as { apiKey: string };
+      const credentials = await this.getCredentials('prismaAIRSCredentials') as { apiKey: string };
       const apiKey = credentials.apiKey;
 
       const requestOptions: IHttpRequestOptions = {
