@@ -10,15 +10,14 @@
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "outDir": "./dist",
-    "rootDir": "./nodes",
+    "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*"]
     }
   },
   "include": [
-    "nodes/**/*.ts",
-    "credentials/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
