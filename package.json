@@ -17,7 +17,7 @@
   "homepage": "https://github.com/matthew20103/n8n-nodes-prismaairs",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matthew20103/n8n-nodes-prismaairs.git"
+    "url": "https://github.com/matthew20103/n8n-nodes-prismaairs.git"
   },
   "license": "MIT",
   "author": {
