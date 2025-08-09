@@ -134,9 +134,7 @@ export class PrismaAIRSCheck implements INodeType {
         });
       }
     }
-    return ({
-			chatInput: chatInput,
-		});
+    return (returnData);
   }
 	
 }
