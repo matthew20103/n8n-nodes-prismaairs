@@ -43,11 +43,8 @@ export class PrismaAIRSApi implements ICredentialType {
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: '={{$credentials.host}}',
-			url: '/results',
+			url: '/results?scan_ids=020e7c31-0000-4e0d-a2a6-215a0d5c56d9',
 			method: 'GET',
-			qs: {
-				'scan_id': '020e7c31-0000-4e0d-a2a6-215a0d5c56d9',
-			},
 		},
 	};
 }
