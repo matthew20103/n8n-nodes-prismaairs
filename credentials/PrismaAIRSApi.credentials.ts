@@ -15,37 +15,27 @@ export class PrismaAIRSApi implements ICredentialType {
 			displayName: 'Prisma AIRS URL',
 			name: 'host',
 			type: 'string',
-			default: 'https://service.api.aisecurity.paloaltonetworks.com/v1/scan/sync/request',
-			description: 'The base URL for your Langfuse instance',
+			default: 'https://service.api.aisecurity.paloaltonetworks.com/v1/scan',
+			description: 'The base URL for your Prisma AIRS API Intercept',
 		},
 		{
-			displayName: 'Public Key',
-			name: 'publicKey',
-			type: 'string',
-			typeOptions: { password: true },
-			required: true,
-			default: '',
-			description: 'Prisma AIRS public API key (used as username for Basic Auth)',
-		},
-		{
-			displayName: 'Secret Key',
-			name: 'secretKey',
+			displayName: 'API Key',
+			name: 'apiKey',
 			type: 'string',
 			typeOptions: {
 				password: true,
 			},
 			required: true,
 			default: '',
-			description: 'Prisma AIRS secret API key (used as password for Basic Auth)',
+			description: 'Prisma AIRS secret API key',
 		},
 	];
 
 	authenticate: IAuthenticateGeneric = {
 		type: 'generic',
 		properties: {
-			auth: {
-				username: '={{$credentials.publicKey}}',
-				password: '={{$credentials.secretKey}}',
+			header: {
+				'x-pan-token': '={{$credentials.apiKey}}',
 			},
 		},
 	};
@@ -53,8 +43,9 @@ export class PrismaAIRSApi implements ICredentialType {
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: '={{$credentials.host}}',
-			url: '/api/public/projects',
+			url: '/results',
 			method: 'GET',
+			body: 'scan_ids=020e7c31-0000-4e0d-a2a6-215a0d5c56d9',
 		},
 	};
 }
