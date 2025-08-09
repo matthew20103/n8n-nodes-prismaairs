@@ -64,9 +64,9 @@ export class PrismaAIRSCheck implements INodeType {
     const returnData: any[] = [];
 
     for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
-      const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
-      const chatInput = this.getNodeParameter('chatInput', itemIndex) as string;
-      const aiProfileName = this.getNodeParameter('aiProfileName', itemIndex) as string;
+      const sessionId = this.getNodeParameter('sessionId') as string;
+      const chatInput = this.getNodeParameter('chatInput') as string;
+      const aiProfileName = this.getNodeParameter('aiProfileName') as string;
 
       const credentials = await this.getCredentials('prismaAIRSApi') as { apiKey: string };
       const apiKey = credentials.apiKey;
@@ -101,10 +101,18 @@ export class PrismaAIRSCheck implements INodeType {
         const response = await this.helpers.httpRequest(requestOptions);
 
         // Process the AIRS response
-        let action = 'allow'; // Default action
-        let outputMessage = '';
-
-        const promptDetected = response?.result?.prompt_detected;
+        const verdict = response.result.category;
+				const action = response.result.action;
+				let outputMessage = '';
+				switch (action) {
+					case 'allow':
+						returnData.push(chatInput);
+						break;
+					case 'malicious':
+						
+				}
+				
+        const promptDetected = response.result.prompt_detected;
 
         if (promptDetected) {
           if (promptDetected.agent === true) {
