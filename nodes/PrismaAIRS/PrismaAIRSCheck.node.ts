@@ -5,6 +5,7 @@ import {
 	IExecuteFunctions,
 	IHttpRequestOptions,
 	IHttpRequestMethods,
+	INodeExecutionData,
 } from 'n8n-workflow';
 
 export class PrismaAIRSCheck implements INodeType {
@@ -58,11 +59,11 @@ export class PrismaAIRSCheck implements INodeType {
 		],
 	};
 	
-	async execute(this: IExecuteFunctions): Promise<any> {
+	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
     const items = this.getInputData();
-    const returnData: any[] = [];
+    const returnData: INodeExecutionData[] = [];
 		returnData.push ({
-			original: 'What the fuck?',
+			'original': 'What the fuck?',
 		});
 		
 
