@@ -134,7 +134,12 @@ export class PrismaAIRSCheck implements INodeType {
         });
       }
     }
-    return (returnData);
+    return [
+			{
+				json: {
+					"key": "value"
+			}
+		];
   }
 	
 }
