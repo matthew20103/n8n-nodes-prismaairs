@@ -31,7 +31,7 @@ export class PrismaAIRSCheck implements INodeType {
 				default: '{{ $json.sessionId }}',
 				description: 'Unique identifier for the current chat session.',
 				required: true,
-			}
+			},
 			{
 				displayName: 'Prompt / Response',
 				name: 'chatInput',
@@ -39,7 +39,7 @@ export class PrismaAIRSCheck implements INodeType {
 				default: '{{ $json.chatInput }}',
 				description: 'The user\'s prompt text to be chcked',
 				required: true,
-			}
+			},
 			{
 				displayName: 'Prisma AIRS AI Profile Name',
 				name: 'aiProfileName',
@@ -47,7 +47,7 @@ export class PrismaAIRSCheck implements INodeType {
 				default: 'Demo-Profile-for-Input',
 				description: 'The Prisma AIRS AI profile name configured for input scanning.',
 				required: true,
-			}
+			},
 		],
 	};
 	
