@@ -106,49 +106,27 @@ export class PrismaAIRSCheck implements INodeType {
 				let outputMessage = '';
 				switch (action) {
 					case 'allow':
-						returnData.push(chatInput);
+						returnData.push({
+							sessionId: sessionId,
+							chatInput: chatInput,
+						});
 						break;
 					case 'malicious':
-						
-				}
-				
-        const promptDetected = response.result.prompt_detected;
-
-        if (promptDetected) {
-          if (promptDetected.agent === true) {
-            action = 'block';
-            outputMessage = 'Palo Alto Networks AIRS detected an Agent Attack. Please redefine your questions';
-          } else if (promptDetected.dlp === true) {
-            action = 'block';
-            outputMessage = 'Palo Alto Networks AIRS detected that there is sensitive data in your request, please try again with another question';
-          } else if (promptDetected.injection === true) {
-            action = 'block';
-            outputMessage = 'Palo Alto Networks AIRS detected a Prompt Injection Attack. Please redefine your questions';
-          } else if (promptDetected.toxic_content === true) {
-            action = 'block';
-            outputMessage = 'Palo Alto Networks AIRS detected some unacceptable content. Please redefine your questions';
-          } else if (promptDetected.url_cats === true) {
-            action = 'block';
-            outputMessage = 'Palo Alto Networks AIRS detected unacceptable URL. Please redefine your questions';
-          }
-        }
-
-        if (action === 'allow') {
-          // If allowed, return original inputs to continue the workflow
-          returnData.push({
-            json: {
-              sessionId: sessionId,
-              chatInput: chatInput,
-            },
-          });
-        } else {
-          // If blocked, return the error message
-          returnData.push({
+						outputMessage = 'Palo Alto Networks AIRS detected a Prompt Injection.';
+						returnData.push({
             json: {
               output: outputMessage,
             },
           });
-        }
+						break;
+					default:
+						returnData.push({
+							sessionId: sessionId,
+							chatInput: chatInput,
+						});
+				}	
+        const promptDetected = response.result.prompt_detected;
+        
       } catch (error: unknown) { // Fixed: Explicitly type error as unknown
         // Handle API call errors
         console.error('Prisma AIRS API Error:', error);
