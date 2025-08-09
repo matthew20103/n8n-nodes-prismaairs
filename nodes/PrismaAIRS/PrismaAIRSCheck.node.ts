@@ -124,16 +124,27 @@ export class PrismaAIRSCheck implements INodeType {
 						});
 				}	
         
-      } catch (error: unknown) { // Fixed: Explicitly type error as unknown
-        // Handle API call errors
-        console.error('Prisma AIRS API Error:', error);
-        returnData.push({
-          json: {
-            output: `Error calling Prisma AIRS API: ${(error as Error).message || 'Unknown error'}`, // Fixed: Cast error to Error
-          },
-        });
-      }
-    }
+      } catch (error: unknown) {
+			    let errorMessage = 'Unknown error';
+			    if (error instanceof Error) {
+			        // If the error is a standard Error object, use its message
+			        errorMessage = error.message;
+			    } else if (typeof error === 'object' && error !== null) {
+			        // If it's an object, stringify it to see its contents
+			        errorMessage = JSON.stringify(error);
+			    } else {
+			        // Otherwise, just use its string representation
+			        errorMessage = String(error);
+			    }
+			
+			    console.error('Prisma AIRS API Error:', errorMessage);
+			    returnData.push({
+			        json: {
+			            output: `Error calling Prisma AIRS API: ${errorMessage}`,
+			        },
+			    });
+			}
+		}
     return [returnData];
   }
 	
