@@ -35,7 +35,7 @@ export class PrismaAIRSCheck implements INodeType {
 				displayName: 'Session ID',
 				name: 'sessionId',
 				type: 'string',
-				default: '{{ $json.sessionId }}',
+				default: '={{ $json.sessionId }}',
 				description: 'Unique identifier for the current chat session.',
 				required: true,
 			},
@@ -43,7 +43,7 @@ export class PrismaAIRSCheck implements INodeType {
 				displayName: 'Prompt / Response',
 				name: 'chatInput',
 				type: 'string',
-				default: '{{ $json.chatInput }}',
+				default: '={{ $json.chatInput }}',
 				description: 'The user\'s prompt text to be chcked',
 				required: true,
 			},
@@ -63,7 +63,7 @@ export class PrismaAIRSCheck implements INodeType {
     const returnData: any[] = [];
 
     for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
-      const sessionId = this.getNodeParameter('sessionId', itemIndex);
+      const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
       const chatInput = this.getNodeParameter('chatInput', itemIndex) as string;
       const aiProfileName = this.getNodeParameter('aiProfileName', itemIndex) as string;
 
