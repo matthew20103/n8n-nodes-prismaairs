@@ -63,7 +63,7 @@ export class PrismaAIRSCheck implements INodeType {
     const returnData: any[] = [];
 
     for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
-      const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
+      const sessionId = this.getNodeParameter('sessionId', itemIndex);
       const chatInput = this.getNodeParameter('chatInput', itemIndex) as string;
       const aiProfileName = this.getNodeParameter('aiProfileName', itemIndex) as string;
 
