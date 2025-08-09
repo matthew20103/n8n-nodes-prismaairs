@@ -1,4 +1,4 @@
-# n8n-nodes-langfuse
+# n8n-nodes-prismaairs
 
 This is an n8n community node. It lets you use Prisma AIRS in your n8n workflows.
 
