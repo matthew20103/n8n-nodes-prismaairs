@@ -100,7 +100,7 @@ export class PrismaAIRSCheck implements INodeType {
         const response = await this.helpers.httpRequest(requestOptions);
 
         // Process the AIRS response
-				const action = JSON.parse(response).action;
+				const action = response.action;
 				let outputMessage = '';
 				switch (action) {
 					case 'allow':
