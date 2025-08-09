@@ -1,0 +1,18 @@
+{
+	"node": "Prisma AIRS API",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["AI"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://pan.dev/prisma-airs/scan/api/"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://pan.dev/airs/"
+			}
+		]
+	}
+}
