@@ -1,4 +1,11 @@
-import { INodeType, INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
+import { 
+	INodeType, 
+	INodeTypeDescription, 
+	NodeConnectionType,
+	IExecuteFunctions,
+	IHttpRequestOptions,
+	IHttpRequestMethods,
+} from 'n8n-workflow';
 
 export class PrismaAIRSCheck implements INodeType {
 	description: INodeTypeDescription = {
@@ -82,7 +89,6 @@ export class PrismaAIRSCheck implements INodeType {
           contents: [
             {
               prompt: chatInput,
-              context: context,
             },
           ],
         },
