@@ -34,7 +34,7 @@ export class PrismaAIRSApi implements ICredentialType {
 	authenticate: IAuthenticateGeneric = {
 		type: 'generic',
 		properties: {
-			header: {
+			headers: {
 				'x-pan-token': '={{$credentials.apiKey}}',
 			},
 		},
