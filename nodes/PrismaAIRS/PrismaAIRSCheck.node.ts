@@ -5,7 +5,6 @@ import {
 	IExecuteFunctions,
 	IHttpRequestOptions,
 	IHttpRequestMethods,
-	INodeExecutionData,
 } from 'n8n-workflow';
 
 export class PrismaAIRSCheck implements INodeType {
