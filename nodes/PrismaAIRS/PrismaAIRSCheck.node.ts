@@ -105,7 +105,7 @@ export class PrismaAIRSCheck implements INodeType {
 				switch (action) {
 					case 'allow':
 						returnData.push({
-							sessionId: sessionId,
+							sessionId: sessionId.json.sessionId,
 							chatInput: chatInput,
 						});
 						break;
