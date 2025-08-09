@@ -59,7 +59,7 @@ export class PrismaAIRSCheck implements INodeType {
 		],
 	};
 	
-	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
+	async execute(this: IExecuteFunctions): Promise<any> {
     const items = this.getInputData();
     const returnData: any[] = [];
 
