@@ -139,7 +139,7 @@ export class PrismaAIRSCheck implements INodeType {
 				json: {
 					"key": "value",
 				},
-				json: {
+				json2: {
 					"key2": "value2",
 				},
 			},
