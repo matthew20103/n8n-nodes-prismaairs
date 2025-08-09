@@ -1,6 +1,6 @@
 import { INodeType, INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
 
-export class Langfuse implements INodeType {
+export class PrismaAIRSCheck implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'PrismaAIRS',
 		name: 'prismaairs',
@@ -9,7 +9,7 @@ export class Langfuse implements INodeType {
 		version: 1,
 		description: 'Prisma AIRS AI Security.',
 		defaults: {
-			name: 'Get Prompt (Langfuse)',
+			name: 'Get Prompt (PrismaAIRS)',
 		},
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],
