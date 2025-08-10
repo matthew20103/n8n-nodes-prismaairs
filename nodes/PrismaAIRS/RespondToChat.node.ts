@@ -2,20 +2,20 @@ import { INodeType, INodeTypeDescription, NodeConnectionType } from 'n8n-workflo
 
 export class Langfuse implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Langfuse',
-		name: 'langfuse',
-		icon: 'file:langfuse.svg',
+		displayName: 'RespondToChat',
+		name: 'respondToChat',
+		icon: 'file:PrismaAIRS.svg',
 		group: ['transform'],
 		version: 1,
 		description: 'Fetches a prompt from Langfuse Prompt Management',
 		defaults: {
-			name: 'Get Prompt (Langfuse)',
+			name: 'Get Prompt (Prisma AIRS)',
 		},
 		inputs: [NodeConnectionType.Main],
 		outputs: [NodeConnectionType.Main],
 		credentials: [
 			{
-				name: 'langfuseApi',
+				name: 'prismaAIRSApi',
 				required: true,
 			},
 		],
@@ -68,7 +68,7 @@ export class Langfuse implements INodeType {
 				type: 'string',
 				required: true,
 				default: '',
-				description: 'The name of the prompt to retrieve from LangFuse',
+				description: 'The name of the prompt to retrieve from Prisma AIRS',
 				displayOptions: {
 					show: {
 						resource: ['prompt'],
