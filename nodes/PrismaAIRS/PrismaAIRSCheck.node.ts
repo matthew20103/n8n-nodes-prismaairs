@@ -251,7 +251,7 @@ export class PrismaAIRSCheck implements INodeType {
 					// For the case where AI attack is found, return the block message to json key output.
 				case 'block':
 						let messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
-						if (items[0].json.hasOwnProperty('prompt_detected') {
+						if (items[0].json.hasOwnProperty('prompt_detected')) {
 							const prompt_detected = items[0].json.prompt_detected;
 							if (prompt_detected.agent === 'true') {
 								messageBlocked = this.getNodeParameter('aiAgentAttackMessage', 0) as string;
