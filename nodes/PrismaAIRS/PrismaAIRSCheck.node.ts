@@ -106,7 +106,7 @@ export class PrismaAIRSCheck implements INodeType {
 				hint: '{{ $json.sessionId }} or {{ $json.output }}',
 				displayOptions: {
 					show: {
-						operation: ['Prisma AIRS Prompt Inspection'],
+						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
 					},
 				},
 			},
@@ -260,6 +260,8 @@ export class PrismaAIRSCheck implements INodeType {
 			        dlp?: string;
 			    	}
 						const promptDetected = items[0].json.prompt_detected;
+						messageBlocked = promptDetected.agent;
+					
 						if (promptDetected && typeof promptDetected === 'object') {
 							const parsedPrompt = promptDetected as PromptDetected;
 							if (parsedPrompt.agent === 'true') {
