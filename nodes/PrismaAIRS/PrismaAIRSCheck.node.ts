@@ -128,14 +128,94 @@ export class PrismaAIRSCheck implements INodeType {
 				name: 'aiProfileName',
 				type: 'string',
 				default: 'Demo-Profile-for-Input',
-				description: 'The Prisma AIRS AI profile name configured for input scanning.',
+				description: 'The Prisma AIRS AI profile name configured for input / output scanning.',
 				required: true,
 				displayOptions: {
 					show: {
-						operation: ['Prisma AIRS Prompt Inspection'],
+						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
 					},
 				},
 			},
+
+			{
+				displayName: 'AI Agent Attack Message',
+				name: 'aiAgentAttackMessage',
+				type: 'string',
+				default: 'Palo Alto Networks Prisma AIRS detected an attack. Please redefine your questions.',
+				description: 'The message output when AI Agent attack is detected.',
+				required: true,
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Inspection Result'],
+					},
+				},
+			},
+			{
+				displayName: 'Prompt Injection Attack Message',
+				name: 'promptInjectionAttackMessage',
+				type: 'string',
+				default: 'Palo Alto Networks Prisma AIRS detected an attack. Please redefine your questions.',
+				description: 'The message output when Prompt Injection attack is detected.',
+				required: true,
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Inspection Result'],
+					},
+				},
+			},
+			{
+				displayName: 'Toxic Content Message',
+				name: 'toxicContentMessage',
+				type: 'string',
+				default: 'Palo Alto Networks Prisma AIRS detected an attack. Please redefine your questions.',
+				description: 'The message output when Toxic Content is detected.',
+				required: true,
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Inspection Result'],
+					},
+				},
+			},
+			{
+				displayName: 'Malicious Code Message',
+				name: 'maliciousCodeMessage',
+				type: 'string',
+				default: 'Palo Alto Networks Prisma AIRS detected an attack. Please redefine your questions.',
+				description: 'The message output when Malicious Code is detected.',
+				required: true,
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Inspection Result'],
+					},
+				},
+			},
+			{
+				displayName: 'Malicious URL Message',
+				name: 'maliciousURLMessage',
+				type: 'string',
+				default: 'Palo Alto Networks Prisma AIRS detected an attack. Please redefine your questions.',
+				description: 'The message output when Malicious URL is detected.',
+				required: true,
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Inspection Result'],
+					},
+				},
+			},
+			{
+				displayName: 'DLP Message',
+				name: 'dlpMessage',
+				type: 'string',
+				default: 'Palo Alto Networks Prisma AIRS detected a Sensitive Data Leakage. Please redefine your questions.',
+				description: 'The message output when Sensitive Data is detected.',
+				required: true,
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Inspection Result'],
+					},
+				},
+			},
+			
 		],
 	};
 	
@@ -143,8 +223,39 @@ export class PrismaAIRSCheck implements INodeType {
     const items = this.getInputData();
     const returnData: INodeExecutionData[] = [];
 
+		if (items[0].json.hasOwnProperty('prismaAIRSAction')) {
+			switch (items[0].son.prismaAIRSAction) {
+				case 'allow':
+						returnData.push({
+							json: {
+								sessionId: sessionId,
+								chatInput: chatInput,
+							}
+						});
+					return this.prepareOutputData(returnData);
+					break;
+				case 'block':
+						const messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
+						returnData.push({
+							json: {
+								messageBlocked: messageBlocked,
+							}
+						});
+					return this.prepareOutputData(returnData);
+					break;
+				default:
+					returnData.push({
+							json: {
+								sessionId: sessionId,
+								chatInput: chatInput,
+							}
+						});
+					return this.prepareOutputData(returnData);
+			}
+		}
+		
     for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
-      const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
+			const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
       const chatInput = this.getNodeParameter('chatInput', itemIndex) as string;
       const aiProfileName = this.getNodeParameter('aiProfileName', itemIndex) as string;
 
@@ -182,25 +293,24 @@ export class PrismaAIRSCheck implements INodeType {
 
         // Process the AIRS response
 				const action = response.action;
-				returnData.push({
-	            json: {
-	              'action': action,
-	            },
-	          });
-				let outputMessage = '';
 				switch (action) {
 					case 'allow':
 						returnData.push({
 							json: {
 								sessionId: sessionId,
 								chatInput: chatInput,
+								prismaAIRSAction: action,
 							}
 						});
 						break;
 					case 'block':
-						outputMessage = 'Palo Alto Networks AIRS detected a Prompt Injection.';
-						console.error(outputMessage)
-						return [[]];
+						returnData.push({
+							json: {
+								sessionId: sessionId,
+								chatInput: chatInput,
+								prismaAIRSAction: action,
+							}
+						});
 						break;
 					default:
 						returnData.push({
