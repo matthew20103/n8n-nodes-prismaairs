@@ -224,12 +224,12 @@ export class PrismaAIRSCheck implements INodeType {
     const returnData: INodeExecutionData[] = [];
 
 		if (items[0].json.hasOwnProperty('prismaAIRSAction')) {
-			switch (items[0].son.prismaAIRSAction) {
+			switch (items[0].json.prismaAIRSAction) {
 				case 'allow':
 						returnData.push({
 							json: {
-								sessionId: sessionId,
-								chatInput: chatInput,
+								sessionId: items[0].json.sessionId,
+								chatInput: items[0].json.chatInput,
 							}
 						});
 					return this.prepareOutputData(returnData);
@@ -246,8 +246,8 @@ export class PrismaAIRSCheck implements INodeType {
 				default:
 					returnData.push({
 							json: {
-								sessionId: sessionId,
-								chatInput: chatInput,
+								sessionId: items[0].json.sessionId,
+								chatInput: items[0].json.chatInput,
 							}
 						});
 					return this.prepareOutputData(returnData);
