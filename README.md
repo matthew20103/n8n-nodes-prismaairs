@@ -19,7 +19,7 @@ This is an n8n community node. It lets you use Prisma AIRS API Intercept in your
 Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
 
 ```bash
-npm install @langfuse/n8n-nodes-langfuse
+npm install @prismaairs/n8n-nodes-prismaairs
 ```
 
 ### n8n Cloud
@@ -35,7 +35,7 @@ This node can be used call the Prisma AIRS API Intercept for protection on promp
 Steps
 
 1. Enter the `name` of the prompt
-2. Enter the `label` that identifies the prompt version that you want to fetch. Defaults to "production". Learn more about prompt labels in Langfuse [here](https://langfuse.com/docs/prompts/get-started#labels).
+2. Enter the `label` that identifies the prompt version that you want to fetch. Defaults to "production".
 
 _Example workflow that retrieves the system prompt for the agent from Langfuse:_
 
@@ -43,10 +43,10 @@ _Example workflow that retrieves the system prompt for the agent from Langfuse:_
 
 ## Credentials
 
-To use this node, you need to authenticate with Langfuse. You'll need:
+To use this node, you need to authenticate with Prisma AIRS. You'll need:
 
-1. A Langfuse account, either [Langfuse Cloud](https://cloud.langfuse.com) or [self-hosted](https://langfuse.com/self-hosting).
-2. API credentials from your Langfuse project settings: hostname, public key, secret key
+1. A Prisma AIRS account, from [Strata Cloud Manager](https://stratacloudmanager.paloaltonetworks.com/).
+2. API credentials from your Prisma AIRS project settings: API key.
 
 ## Development
 
@@ -73,14 +73,14 @@ npm link
 
 ```bash
 cd ~/.n8n/custom
-npm link n8n-nodes-langfuse
+npm link n8n-nodes-prismaairs
 ```
 
 ## Resources
 
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
-- [Langfuse documentation](https://langfuse.com/docs)
-- [Langfuse Prompt Management](https://langfuse.com/docs/prompts)
+- [Prisma AIRS documentation](https://pan.dev/airs/)
+- [Prisma AIRS API Intercept](https://pan.dev/prisma-airs/scan/api/)
 
 ## License
 
