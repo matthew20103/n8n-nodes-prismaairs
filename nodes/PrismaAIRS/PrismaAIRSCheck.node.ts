@@ -101,7 +101,7 @@ export class PrismaAIRSCheck implements INodeType {
 				displayName: 'Session ID',
 				name: 'sessionId',
 				type: 'string',
-				default: '={{ $json.sessionId }}',
+				default: '',
 				description: 'Unique identifier for the current chat session.',
 				displayOptions: {
 					show: {
@@ -225,6 +225,16 @@ export class PrismaAIRSCheck implements INodeType {
 		if (items[0].json.hasOwnProperty('prismaAIRSAction')) {
 			switch (items[0].json.prismaAIRSAction) {
 				case 'allow':
+						// For the case of handling Prisma AIRS Response Inspection, only return output as json key.
+						if (items[0].json.hasOwnProperty('output')) {
+							returnData.push({
+								json: {
+									output: items[0].json.chatInput,
+								}
+							});
+							return this.prepareOutputData(returnData);
+						}
+						// For the case of handling Prisma AIRS Prompt Inspection, return both sessionId and chatInput as json keys.
 						returnData.push({
 							json: {
 								sessionId: items[0].json.sessionId,
