@@ -373,7 +373,7 @@ export class PrismaAIRSCheck implements INodeType {
 		}
 
 		// Prisma AIRS Response Inspection
-    if (items[0].json.hasOwnProperty('output') {
+    if (items[0].json.hasOwnProperty('output')) {
 				for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 	      const outPut = this.getNodeParameter('outPut', itemIndex) as string;
 	      const aiProfileNameOutput = this.getNodeParameter('aiProfileNameOutput', itemIndex) as string;
@@ -445,7 +445,7 @@ export class PrismaAIRSCheck implements INodeType {
 			}
 		}
 
-		if (items[0].json.hasOwnProperty('chatInput') {
+		if (items[0].json.hasOwnProperty('chatInput')) {
 			for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 				const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
 	      const chatInput = this.getNodeParameter('chatInput', itemIndex) as string;
