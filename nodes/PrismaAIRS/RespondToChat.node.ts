@@ -46,7 +46,6 @@ export class RespondToChat implements INodeType {
 				displayOptions: {
 					show: {
 						resource: ['prompt'],
-						operation: ['get'],
 					},
 				},
 			},
@@ -60,7 +59,6 @@ export class RespondToChat implements INodeType {
 				displayOptions: {
 					show: {
 						resource: ['prompt'],
-						operation: ['get'],
 					},
 				},
 				routing: {
