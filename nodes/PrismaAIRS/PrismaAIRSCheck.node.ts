@@ -33,12 +33,82 @@ export class PrismaAIRSCheck implements INodeType {
 		},
 		properties: [
 			{
+				displayName: 'Resource',
+				name: 'resource',
+				type: 'hidden',
+				noDataExpression: true,
+				options: [
+					{
+						name: 'Default',
+						value: 'Default',
+						description: '',
+					},
+				],
+				default: '',
+			},
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						'Default'
+					},
+				},
+				options: [
+					{
+						name: 'Prisma AIRS Prompt Inspection',
+						value: 'Prisma AIRS Prompt Inspection',
+						action: 'Prisma AIRS Prompt Inspection',
+						description: 'Prompt Protection Node',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '=/request'
+							},
+						},
+					},
+					{
+						name: 'Prisma AIRS Response Inspection',
+						value: 'Prisma AIRS Response Inspection',
+						action: 'Prisma AIRS Response Inspection',
+						description: 'Response Protection Node',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '=/request'
+							},
+						},
+					},
+					{
+						name: 'Prisma AIRS Inspection Result',
+						value: 'Prisma AIRS Inspection Result',
+						action: 'Prisma AIRS Inspection Result',
+						description: 'Inspection Result for Block Action',
+						routing: {
+							request: {
+								method: 'POST',
+								url: '=/request'
+							},
+						},
+					},
+				],
+				default: '',
+			},
+			
+			{
 				displayName: 'Session ID',
 				name: 'sessionId',
 				type: 'string',
 				default: '={{ $json.sessionId }}',
 				description: 'Unique identifier for the current chat session.',
 				required: true,
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Prompt Inspection'],
+					},
+				},
 			},
 			{
 				displayName: 'Prompt / Response',
@@ -47,6 +117,11 @@ export class PrismaAIRSCheck implements INodeType {
 				default: '={{ $json.chatInput }}',
 				description: 'The user\'s prompt text to be chcked',
 				required: true,
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Prompt Inspection'],
+					},
+				},
 			},
 			{
 				displayName: 'Prisma AIRS AI Profile Name',
@@ -55,6 +130,11 @@ export class PrismaAIRSCheck implements INodeType {
 				default: 'Demo-Profile-for-Input',
 				description: 'The Prisma AIRS AI profile name configured for input scanning.',
 				required: true,
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Prompt Inspection'],
+					},
+				},
 			},
 		],
 	};
