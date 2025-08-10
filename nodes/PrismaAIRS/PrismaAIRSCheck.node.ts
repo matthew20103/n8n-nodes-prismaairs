@@ -253,7 +253,7 @@ export class PrismaAIRSCheck implements INodeType {
 						let messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
 						if (items[0].json.hasOwnProperty('prompt_detected')) {
 							let prompt_detected = {
-								json {
+								json: {
 									agent: 'false',
 									injection: 'false',
 									toxic_content: 'false',
