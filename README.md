@@ -1,8 +1,8 @@
 # n8n-nodes-prismaairs
 
-This is an n8n community node. It lets you use Prisma AIRS in your n8n workflows.
+This is an n8n community node. It lets you use Prisma AIRS API Intercept in your n8n workflows.
 
-[Langfuse](https://langfuse.com) is an open-source LLM engineering platform that provides observability, metrics, evaluations, prompt management and a playground.
+[Prisma AIRS](https://pan.dev/airs/) AI Runtime: API Intercept is Palo Alto Networks’ API for securing AI applications, AI models, AI data, and AI agents. Instantly protect your models from prompt injection, data leaks, and unsafe outputs—so you can build and deploy AI with confidence.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -24,13 +24,13 @@ npm install @langfuse/n8n-nodes-langfuse
 
 ### n8n Cloud
 
-This is a verified community node. Search for `Langfuse` to use this node in n8n Cloud.
+This is a verified community node. Search for `Prisma AIRS` to use this node in n8n Cloud.
 
 ## Operations
 
 ### Get Prompt
 
-This node can be used to get a prompt from [Langfuse Prompt Management](https://langfuse.com/docs/prompts).
+This node can be used call the Prisma AIRS API Intercept for protection on prompt injection, AI Agent attacks, database security attack, Data Loss Prevention, Malicious Code generation, Malicious URLs prevention, and more. See [Prisma AIRS API Intercept](https://pan.dev/airs/).
 
 Steps
 
