@@ -272,7 +272,7 @@ export class PrismaAIRSCheck implements INodeType {
 				        toxic_content?: string;
 				        url_cats?: string;
 				    	}*/
-							const promptDetected = items[0].json.prompt_detected;
+							const promptDetected = items[0].json.prompt_detected as JSON;
 							if (promptDetected && typeof promptDetected === 'object') {
 								const parsedPrompt = promptDetected as JSON;
 								if (promptDetected.agent === 'true') {
