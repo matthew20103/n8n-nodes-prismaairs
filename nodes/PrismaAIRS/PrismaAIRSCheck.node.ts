@@ -275,17 +275,17 @@ export class PrismaAIRSCheck implements INodeType {
 							const promptDetected = items[0].json.prompt_detected;
 							if (promptDetected && typeof promptDetected === 'object') {
 								const parsedPrompt = promptDetected as JSON;
-								if (parsedPrompt.agent === 'true') {
+								if (promptDetected.json.agent === 'true') {
 									messageBlocked = this.getNodeParameter('aiAgentAttackMessage', 0) as string;
-								} else if (parsedPrompt.injection === 'true') {
+								} else if (promptDetected.json.injection === 'true') {
 									messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
-								} else if (parsedPrompt.toxic_content === 'true') {
+								} else if (promptDetected.json.toxic_content === 'true') {
 									messageBlocked = this.getNodeParameter('toxicContentMessage', 0) as string;
-								} else if (parsedPrompt.malicious_code === 'true') {
+								} else if (promptDetected.json.malicious_code === 'true') {
 									messageBlocked = this.getNodeParameter('maliciousCodeMessage', 0) as string;
-								} else if (parsedPrompt.url_cats === 'true') {
+								} else if (promptDetected.json.url_cats === 'true') {
 									messageBlocked = this.getNodeParameter('maliciousURLMessage', 0) as string;
-								} else if (parsedPrompt.dlp === 'true') {
+								} else if (promptDetected.json.dlp === 'true') {
 									messageBlocked = this.getNodeParameter('dlpMessage', 0) as string;
 								} else {
 									messageBlocked = parsedPrompt.toxic_content as string;
