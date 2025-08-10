@@ -53,7 +53,7 @@ export class PrismaAIRSCheck implements INodeType {
 				noDataExpression: true,
 				displayOptions: {
 					show: {
-						'Default'
+						'Default',
 					},
 				},
 				options: [
@@ -65,7 +65,7 @@ export class PrismaAIRSCheck implements INodeType {
 						routing: {
 							request: {
 								method: 'POST',
-								url: '=/request'
+								url: '=/request',
 							},
 						},
 					},
@@ -77,7 +77,7 @@ export class PrismaAIRSCheck implements INodeType {
 						routing: {
 							request: {
 								method: 'POST',
-								url: '=/request'
+								url: '=/request',
 							},
 						},
 					},
@@ -89,7 +89,7 @@ export class PrismaAIRSCheck implements INodeType {
 						routing: {
 							request: {
 								method: 'POST',
-								url: '=/request'
+								url: '=/request',
 							},
 						},
 					},
