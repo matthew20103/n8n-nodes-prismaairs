@@ -287,7 +287,7 @@ export class PrismaAIRSCheck implements INodeType {
 								} else if (parsedPrompt.dlp === 'true') {
 									messageBlocked = this.getNodeParameter('dlpMessage', 0) as string;
 								} else {
-									messageBlocked = parsedPrompt.agent as string;
+									messageBlocked = parsedPrompt.toxic_content as string;
 								}
 							}
 							returnData.push({
