@@ -263,6 +263,7 @@ export class PrismaAIRSCheck implements INodeType {
 							break;
 						case 'block':
 							let messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
+							/*
 							interface PromptDetected {
 	       			 	agent?: string;
 	        			dlp?: string;
@@ -270,10 +271,10 @@ export class PrismaAIRSCheck implements INodeType {
 				        malicious_code?: string;
 				        toxic_content?: string;
 				        url_cats?: string;
-				    	}
+				    	}*/
 							const promptDetected = items[0].json.prompt_detected;
 							if (promptDetected && typeof promptDetected === 'object') {
-								const parsedPrompt = promptDetected as PromptDetected;
+								const parsedPrompt = promptDetected as json;
 								if (parsedPrompt.agent === 'true') {
 									messageBlocked = this.getNodeParameter('aiAgentAttackMessage', 0) as string;
 								} else if (parsedPrompt.injection === 'true') {
