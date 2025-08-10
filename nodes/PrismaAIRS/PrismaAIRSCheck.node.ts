@@ -103,7 +103,7 @@ export class PrismaAIRSCheck implements INodeType {
 				type: 'string',
 				default: '',
 				description: 'Unique identifier for the current chat session.',
-				hit: '{{ $json.sessionId }}',
+				hint: '{{ $json.sessionId }} or {{ $json.output }}',
 				displayOptions: {
 					show: {
 						operation: ['Prisma AIRS Prompt Inspection'],
@@ -227,7 +227,6 @@ export class PrismaAIRSCheck implements INodeType {
 			const prismaAIRSAction = items[0].json.prismaAIRSAction;
 			const message = items[0].json.chatInput;
 			const sessionId = items[0].json.sessionId;
-			const prompt_detected = items[0].json.prompt_detected;
 			
 			switch (prismaAIRSAction) {
 				case 'allow':
@@ -244,7 +243,7 @@ export class PrismaAIRSCheck implements INodeType {
 						returnData.push({
 							json: {
 								sessionId: sessionId,
-								chatInput: chatInput,
+								chatInput: message,
 							}
 						});
 					return this.prepareOutputData(returnData);
@@ -252,21 +251,24 @@ export class PrismaAIRSCheck implements INodeType {
 					// For the case where AI attack is found, return the block message to json key output.
 				case 'block':
 						let messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
-						if (prompt_detected.agent === 'true') {
-							messageBlocked = this.getNodeParameter('aiAgentAttackMessage', 0) as string;
-						} else if (prompt_detected.injection === 'true') {
-							messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
-						} else if (prompt_detected.toxic_content === 'true') {
-							messageBlocked = this.getNodeParameter('toxicContentMessage', 0) as string;
-						} else if (prompt_detected.malicious_code === 'true') {
-							messageBlocked = this.getNodeParameter('maliciousCodeMessage', 0) as string;
-						} else if (prompt_detected.url_cats === 'true') {
-							messageBlocked = this.getNodeParameter('maliciousURLMessage', 0) as string;
-						} else if (prompt_detected.url_cats === 'true') {
-							messageBlocked = this.getNodeParameter('maliciousURLMessage', 0) as string;
-						} else if (prompt_detected.dlp === 'true') {
-							messageBlocked = this.getNodeParameter('dlpMessage', 0) as string;
-						} else {}
+						if (items[0].json.hasOwnProperty('prompt_detected') {
+							const prompt_detected = items[0].json.prompt_detected;
+							if (prompt_detected.agent === 'true') {
+								messageBlocked = this.getNodeParameter('aiAgentAttackMessage', 0) as string;
+							} else if (prompt_detected.injection === 'true') {
+								messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
+							} else if (prompt_detected.toxic_content === 'true') {
+								messageBlocked = this.getNodeParameter('toxicContentMessage', 0) as string;
+							} else if (prompt_detected.malicious_code === 'true') {
+								messageBlocked = this.getNodeParameter('maliciousCodeMessage', 0) as string;
+							} else if (prompt_detected.url_cats === 'true') {
+								messageBlocked = this.getNodeParameter('maliciousURLMessage', 0) as string;
+							} else if (prompt_detected.url_cats === 'true') {
+								messageBlocked = this.getNodeParameter('maliciousURLMessage', 0) as string;
+							} else if (prompt_detected.dlp === 'true') {
+								messageBlocked = this.getNodeParameter('dlpMessage', 0) as string;
+							} else {}
+						}
 						returnData.push({
 							json: {
 								output: messageBlocked,
