@@ -237,7 +237,7 @@ export class PrismaAIRSCheck implements INodeType {
 						const messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
 						returnData.push({
 							json: {
-								messageBlocked: messageBlocked,
+								output: messageBlocked,
 							}
 						});
 					return this.prepareOutputData(returnData);
@@ -292,34 +292,13 @@ export class PrismaAIRSCheck implements INodeType {
 
         // Process the AIRS response
 				const action = response.action;
-				switch (action) {
-					case 'allow':
-						returnData.push({
-							json: {
-								sessionId: sessionId,
-								chatInput: chatInput,
-								prismaAIRSAction: action,
-							}
-						});
-						break;
-					case 'block':
-						returnData.push({
-							json: {
-								sessionId: sessionId,
-								chatInput: chatInput,
-								prismaAIRSAction: action,
-							}
-						});
-						break;
-					default:
-						returnData.push({
-							json: {
-								sessionId: sessionId,
-								chatInput: chatInput,
-								'default': 'This is default case.',
-							}
-						});
-				}	
+				returnData.push({
+						json: {
+							sessionId: sessionId,
+							chatInput: chatInput,
+							prismaAIRSAction: action,
+						}
+				});
         
       } catch (error: unknown) {
 			    let errorMessage = 'Unknown error';
