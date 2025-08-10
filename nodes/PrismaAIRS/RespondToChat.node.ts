@@ -50,6 +50,32 @@ export class RespondToChat implements INodeType {
 				},
 			},
 			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['prompt'],
+					},
+				},
+				options: [
+					{
+						name: 'Get',
+						value: 'get',
+						action: 'Get a prompt',
+						description: 'Retrieve a prompt by name',
+						routing: {
+							request: {
+								method: 'GET',
+								url: '=/api/public/v2/prompts/{{$parameter["promptName"]}}',
+							},
+						},
+					},
+				],
+				default: 'get',
+			},
+			{
 				displayName: 'Prompt Label',
 				name: 'label',
 				type: 'string',
