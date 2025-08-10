@@ -63,7 +63,9 @@ export class PrismaAIRSCheck implements INodeType {
     const items = this.getInputData();
     const returnData: INodeExecutionData[] = [];
 		returnData.push ({
+			json: {
 			'original': 'What the fuck?',
+			}
 		});
 		
 
@@ -150,7 +152,7 @@ export class PrismaAIRSCheck implements INodeType {
 			    });
 			}
 		}
-    return [returnData];
+    return this.prepareOutputData(returnData);
   }
 	
 }
