@@ -251,20 +251,28 @@ export class PrismaAIRSCheck implements INodeType {
 					// For the case where AI attack is found, return the block message to json key output.
 				case 'block':
 						let messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
-						if (items[0].json.hasOwnProperty('prompt_detected')) {
-							//let prompt_detected: any;
-							//prompt_detected = JSON.parse(items[0].json.prompt_detected);
-							if (items[0].json.prompt_detected.agent === 'true') {
+						interface PromptDetected {
+       			 	agent?: string;
+        			injection?: string;
+			        toxic_content?: string;
+			        malicious_code?: string;
+			        url_cats?: string;
+			        dlp?: string;
+			    	}
+						const promptDetected = items[0].json.prompt_detected;
+						if (promptDetected && typeof promptDetected === 'object') {
+							const parsedPrompt = promptDetected as PromptDetected;
+							if (parsedPrompt.agent === 'true') {
 								messageBlocked = this.getNodeParameter('aiAgentAttackMessage', 0) as string;
-							} else if (items[0].json.prompt_detected.injection === 'true') {
+							} else if (parsedPrompt.injection === 'true') {
 								messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
-							} else if (items[0].json.prompt_detected.toxic_content === 'true') {
+							} else if (parsedPrompt.toxic_content === 'true') {
 								messageBlocked = this.getNodeParameter('toxicContentMessage', 0) as string;
-							} else if (items[0].json.prompt_detected.malicious_code === 'true') {
+							} else if (parsedPrompt.malicious_code === 'true') {
 								messageBlocked = this.getNodeParameter('maliciousCodeMessage', 0) as string;
-							} else if (items[0].json.prompt_detected.url_cats === 'true') {
+							} else if (parsedPrompt.url_cats === 'true') {
 								messageBlocked = this.getNodeParameter('maliciousURLMessage', 0) as string;
-							} else if (items[0].json.prompt_detected.dlp === 'true') {
+							} else if (parsedPrompt.dlp === 'true') {
 								messageBlocked = this.getNodeParameter('dlpMessage', 0) as string;
 							} else {}
 						}
