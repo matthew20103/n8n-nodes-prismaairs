@@ -47,11 +47,6 @@ export class PrismaAIRSCheck implements INodeType {
 				default: '={{ $json.chatInput }}',
 				description: 'The user\'s prompt text to be chcked',
 				required: true,
-				options: [
-					{
-						action: 'AI Runtime Protection',
-					},
-				],
 			},
 			{
 				displayName: 'Prisma AIRS AI Profile Name',
