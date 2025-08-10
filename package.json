@@ -37,6 +37,7 @@
 		],
 		"nodes": [
 			"dist/nodes/PrismaAIRS/PrismaAIRSCheck.node.js"
+      "dist/nodes/PrismaAIRS/RespondToChat.node.js"
 		]
 	},
 	"devDependencies": {
