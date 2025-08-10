@@ -1,6 +1,6 @@
 import { INodeType, INodeTypeDescription, NodeConnectionType } from 'n8n-workflow';
 
-export class Langfuse implements INodeType {
+export class RespondToChat implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'RespondToChat',
 		name: 'respondToChat',
