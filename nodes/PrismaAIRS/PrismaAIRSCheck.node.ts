@@ -252,19 +252,19 @@ export class PrismaAIRSCheck implements INodeType {
 				case 'block':
 						let messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
 						if (items[0].json.hasOwnProperty('prompt_detected')) {
-							let prompt_detected: any;
-							prompt_detected = JSON.parse(items[0].json.prompt_detected);
-							if (prompt_detected.agent === 'true') {
+							//let prompt_detected: any;
+							//prompt_detected = JSON.parse(items[0].json.prompt_detected);
+							if (items[0].json.prompt_detected.agent === 'true') {
 								messageBlocked = this.getNodeParameter('aiAgentAttackMessage', 0) as string;
-							} else if (prompt_detected.injection === 'true') {
+							} else if (items[0].json.prompt_detected.injection === 'true') {
 								messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
-							} else if (prompt_detected.toxic_content === 'true') {
+							} else if (items[0].json.prompt_detected.toxic_content === 'true') {
 								messageBlocked = this.getNodeParameter('toxicContentMessage', 0) as string;
-							} else if (prompt_detected.malicious_code === 'true') {
+							} else if (items[0].json.prompt_detected.malicious_code === 'true') {
 								messageBlocked = this.getNodeParameter('maliciousCodeMessage', 0) as string;
-							} else if (prompt_detected.url_cats === 'true') {
+							} else if (items[0].json.prompt_detected.url_cats === 'true') {
 								messageBlocked = this.getNodeParameter('maliciousURLMessage', 0) as string;
-							} else if (prompt_detected.dlp === 'true') {
+							} else if (items[0].json.prompt_detected.dlp === 'true') {
 								messageBlocked = this.getNodeParameter('dlpMessage', 0) as string;
 							} else {}
 						}
