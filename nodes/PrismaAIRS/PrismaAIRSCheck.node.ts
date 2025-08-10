@@ -278,7 +278,7 @@ export class PrismaAIRSCheck implements INodeType {
 				default:
 					returnData.push({
 							json: {
-								output: 'Unknown issue.';
+								output: 'Unknown issue.',
 							}
 						});
 					return this.prepareOutputData(returnData);
