@@ -117,13 +117,10 @@ export class PrismaAIRSCheck implements INodeType {
 							}
 						});
 						break;
-					case 'malicious':
+					case 'block':
 						outputMessage = 'Palo Alto Networks AIRS detected a Prompt Injection.';
-						returnData.push({
-	            json: {
-	              output: outputMessage,
-	            },
-	          });
+						console.error(outputMessage)
+						return [[]];
 						break;
 					default:
 						returnData.push({
