@@ -62,12 +62,6 @@ export class PrismaAIRSCheck implements INodeType {
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
     const items = this.getInputData();
     const returnData: INodeExecutionData[] = [];
-		returnData.push ({
-			json: {
-			'original': 'What the fuck?',
-			}
-		});
-		
 
     for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
       const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
