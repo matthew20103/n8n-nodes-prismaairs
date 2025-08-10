@@ -39,7 +39,7 @@ Steps
 
 _Example workflow that retrieves the system prompt for the agent from Langfuse:_
 
-![n8n-changelog](https://github.com/user-attachments/assets/4d224c2f-86b6-4ad4-a64a-45c7fe6e3595)
+![n8n-changelog](https://github.com/matthew20103/n8n-nodes-prismaairs/blob/741c563d882af6f4b76f7ea78c02cbb81dd0ace5/Prisma%20AIRS%20n8n%20Sample.png)
 
 ## Credentials
 
