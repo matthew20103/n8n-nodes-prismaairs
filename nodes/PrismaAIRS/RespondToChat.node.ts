@@ -4,7 +4,7 @@ export class RespondToChat implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'RespondToChat',
 		name: 'respondToChat',
-		icon: 'file:PrismaAIRS.svg',
+		icon: 'file:prismaAIRS.svg',
 		group: ['transform'],
 		version: 1,
 		description: 'Fetches a prompt from Langfuse Prompt Management',
@@ -35,32 +35,6 @@ export class RespondToChat implements INodeType {
 					},
 				],
 				default: 'prompt',
-			},
-			{
-				displayName: 'Operation',
-				name: 'operation',
-				type: 'options',
-				noDataExpression: true,
-				displayOptions: {
-					show: {
-						resource: ['prompt'],
-					},
-				},
-				options: [
-					{
-						name: 'Get',
-						value: 'get',
-						action: 'Get a prompt',
-						description: 'Retrieve a prompt by name',
-						routing: {
-							request: {
-								method: 'GET',
-								url: '=/api/public/v2/prompts/{{$parameter["promptName"]}}',
-							},
-						},
-					},
-				],
-				default: 'get',
 			},
 			{
 				displayName: 'Prompt Name',
