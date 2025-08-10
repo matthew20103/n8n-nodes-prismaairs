@@ -101,7 +101,7 @@ export class PrismaAIRSCheck implements INodeType {
 				displayName: 'Session ID',
 				name: 'sessionId',
 				type: 'string',
-				default: '{{ $json.sessionId }}',
+				default: '={{ $json.sessionId }}',
 				description: 'Unique identifier for the current chat session.',
 				displayOptions: {
 					show: {
