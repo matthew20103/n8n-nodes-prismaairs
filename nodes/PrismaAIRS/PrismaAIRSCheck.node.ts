@@ -103,6 +103,7 @@ export class PrismaAIRSCheck implements INodeType {
 				type: 'string',
 				default: '',
 				description: 'Unique identifier for the current chat session.',
+				hit: '{{ $json.sessionId }}',
 				displayOptions: {
 					show: {
 						operation: ['Prisma AIRS Prompt Inspection'],
@@ -223,13 +224,18 @@ export class PrismaAIRSCheck implements INodeType {
     const returnData: INodeExecutionData[] = [];
 
 		if (items[0].json.hasOwnProperty('prismaAIRSAction')) {
-			switch (items[0].json.prismaAIRSAction) {
+			const prismaAIRSAction = items[0].json.prismaAIRSAction;
+			const message = items[0].json.chatInput;
+			const sessionId = items[0].json.sessionId;
+			const prompt_detected = items[0].json.prompt_detected;
+			
+			switch (prismaAIRSAction) {
 				case 'allow':
 						// For the case of handling Prisma AIRS Response Inspection, only return output as json key.
 						if (items[0].json.hasOwnProperty('output')) {
 							returnData.push({
 								json: {
-									output: items[0].json.chatInput,
+									output: message,
 								}
 							});
 							return this.prepareOutputData(returnData);
@@ -237,14 +243,30 @@ export class PrismaAIRSCheck implements INodeType {
 						// For the case of handling Prisma AIRS Prompt Inspection, return both sessionId and chatInput as json keys.
 						returnData.push({
 							json: {
-								sessionId: items[0].json.sessionId,
-								chatInput: items[0].json.chatInput,
+								sessionId: sessionId,
+								chatInput: chatInput,
 							}
 						});
 					return this.prepareOutputData(returnData);
 					break;
+					// For the case where AI attack is found, return the block message to json key output.
 				case 'block':
-						const messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
+						let messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
+						if (prompt_detected.agent === 'true') {
+							messageBlocked = this.getNodeParameter('aiAgentAttackMessage', 0) as string;
+						} else if (prompt_detected.injection === 'true') {
+							messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
+						} else if (prompt_detected.toxic_content === 'true') {
+							messageBlocked = this.getNodeParameter('toxicContentMessage', 0) as string;
+						} else if (prompt_detected.malicious_code === 'true') {
+							messageBlocked = this.getNodeParameter('maliciousCodeMessage', 0) as string;
+						} else if (prompt_detected.url_cats === 'true') {
+							messageBlocked = this.getNodeParameter('maliciousURLMessage', 0) as string;
+						} else if (prompt_detected.url_cats === 'true') {
+							messageBlocked = this.getNodeParameter('maliciousURLMessage', 0) as string;
+						} else if (prompt_detected.dlp === 'true') {
+							messageBlocked = this.getNodeParameter('dlpMessage', 0) as string;
+						} else {}
 						returnData.push({
 							json: {
 								output: messageBlocked,
@@ -252,17 +274,18 @@ export class PrismaAIRSCheck implements INodeType {
 						});
 					return this.prepareOutputData(returnData);
 					break;
+					// For unknown issue
 				default:
 					returnData.push({
 							json: {
-								sessionId: items[0].json.sessionId,
-								chatInput: items[0].json.chatInput,
+								output: 'Unknown issue.';
 							}
 						});
 					return this.prepareOutputData(returnData);
 			}
 		}
-		
+
+		// Proceed only if Prisma AIRS inspection is neeeded
     for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 			const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
       const chatInput = this.getNodeParameter('chatInput', itemIndex) as string;
@@ -297,16 +320,18 @@ export class PrismaAIRSCheck implements INodeType {
       };
 
       try {
-        // Fixed: Use this.helpers.httpRequest
+        // Pass message to Prisma AIRS API Intercept for inspection
         const response = await this.helpers.httpRequest(requestOptions);
 
         // Process the AIRS response
 				const action = response.action;
+				const prompt_detected = response.prompt_detected;
 				returnData.push({
 						json: {
 							sessionId: sessionId,
 							chatInput: chatInput,
 							prismaAIRSAction: action,
+							prompt_detected: prompt_detected,
 						}
 				});
         
