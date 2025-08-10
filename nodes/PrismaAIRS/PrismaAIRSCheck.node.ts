@@ -250,6 +250,7 @@ export class PrismaAIRSCheck implements INodeType {
 
 		if (items[0].json.hasOwnProperty('prismaAIRSAction')) {
 			if (items[0].json.hasOwnProperty('output')) {
+				const prismaAIRSAction = items[0].json.prismaAIRSAction;
 				const message = items[0].json.output;
 					switch (prismaAIRSAction) {
 						case 'allow':
