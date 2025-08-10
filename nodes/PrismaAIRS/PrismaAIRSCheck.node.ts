@@ -274,7 +274,7 @@ export class PrismaAIRSCheck implements INodeType {
 				    	}*/
 							const promptDetected = items[0].json.prompt_detected;
 							if (promptDetected && typeof promptDetected === 'object') {
-								const parsedPrompt = promptDetected as json;
+								const parsedPrompt = promptDetected as JSON;
 								if (parsedPrompt.agent === 'true') {
 									messageBlocked = this.getNodeParameter('aiAgentAttackMessage', 0) as string;
 								} else if (parsedPrompt.injection === 'true') {
