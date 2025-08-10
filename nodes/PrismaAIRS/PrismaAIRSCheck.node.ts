@@ -119,8 +119,7 @@ export class PrismaAIRSCheck implements INodeType {
 				required: true,
 				displayOptions: {
 					show: {
-						operation: ['Prisma AIRS Prompt Inspection'],
-						operation: ['Prisma AIRS Response Inspection'],
+						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
 					},
 				},
 			},
