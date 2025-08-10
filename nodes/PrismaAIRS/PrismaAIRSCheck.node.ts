@@ -260,8 +260,6 @@ export class PrismaAIRSCheck implements INodeType {
 			        dlp?: string;
 			    	}
 						const promptDetected = items[0].json.prompt_detected;
-						messageBlocked = promptDetected.agent;
-					
 						if (promptDetected && typeof promptDetected === 'object') {
 							const parsedPrompt = promptDetected as PromptDetected;
 							if (parsedPrompt.agent === 'true') {
@@ -276,7 +274,9 @@ export class PrismaAIRSCheck implements INodeType {
 								messageBlocked = this.getNodeParameter('maliciousURLMessage', 0) as string;
 							} else if (parsedPrompt.dlp === 'true') {
 								messageBlocked = this.getNodeParameter('dlpMessage', 0) as string;
-							} else {}
+							} else {
+								messageBlock = promptDetected.agent;
+							}
 						}
 						returnData.push({
 							json: {
