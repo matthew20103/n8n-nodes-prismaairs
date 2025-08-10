@@ -112,8 +112,10 @@ export class PrismaAIRSCheck implements INodeType {
 				switch (action) {
 					case 'allow':
 						returnData.push({
-							sessionId: sessionId,
-							chatInput: chatInput,
+							json: {
+								sessionId: sessionId,
+								chatInput: chatInput,
+							}
 						});
 						break;
 					case 'malicious':
@@ -126,8 +128,10 @@ export class PrismaAIRSCheck implements INodeType {
 						break;
 					default:
 						returnData.push({
-							sessionId: sessionId,
-							chatInput: chatInput,
+							json: {
+								sessionId: sessionId,
+								chatInput: chatInput,
+							}
 						});
 				}	
         
