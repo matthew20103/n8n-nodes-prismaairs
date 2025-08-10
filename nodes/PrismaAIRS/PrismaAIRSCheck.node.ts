@@ -125,6 +125,7 @@ export class PrismaAIRSCheck implements INodeType {
 							json: {
 								sessionId: sessionId,
 								chatInput: chatInput,
+								'default': 'This is default case.',
 							}
 						});
 				}	
