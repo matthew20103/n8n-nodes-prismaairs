@@ -102,6 +102,11 @@ export class PrismaAIRSCheck implements INodeType {
 
         // Process the AIRS response
 				const action = response.action;
+				returnData.push({
+	            json: {
+	              'action': action,
+	            },
+	          });
 				let outputMessage = '';
 				switch (action) {
 					case 'allow':
@@ -115,10 +120,10 @@ export class PrismaAIRSCheck implements INodeType {
 					case 'malicious':
 						outputMessage = 'Palo Alto Networks AIRS detected a Prompt Injection.';
 						returnData.push({
-            json: {
-              output: outputMessage,
-            },
-          });
+	            json: {
+	              output: outputMessage,
+	            },
+	          });
 						break;
 					default:
 						returnData.push({
