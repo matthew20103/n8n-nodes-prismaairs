@@ -86,4 +86,4 @@ npm link n8n-nodes-prismaairs
 
 ## License
 
-MIT
+[MIT](https://github.com/matthew20103/n8n-nodes-prismaairs/blob/main/LICENSE)
