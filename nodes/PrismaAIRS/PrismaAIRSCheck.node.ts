@@ -383,6 +383,8 @@ export class PrismaAIRSCheck implements INodeType {
 				        dlp?: string;
 				    	}
 							const promptDetected = items[0].json.prompt_detected;
+							const agent = promptDetected.aget;
+						
 							if (promptDetected && typeof promptDetected === 'object') {
 								const parsedPrompt = promptDetected as PromptDetected;
 								if (parsedPrompt.agent === 'true') {
