@@ -374,14 +374,15 @@ export class PrismaAIRSCheck implements INodeType {
 					// For the case where AI attack is found, return the block message to json key output.
 					case 'block':
 							let messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
-							interface PromptDetected {
-	       			 	agent?: string;
-	        			injection?: string;
-				        toxic_content?: string;
-				        malicious_code?: string;
-				        url_cats?: string;
-				        dlp?: string;
-				    	}
+							if (items[0].json.prompt_detected.length > 0) {
+								messageBlocked = 'Palo Alto Networks Prisma AIRS has detected '
+								for (let itemIndex = 0; itemIndex < items[0].json.prompt_detected.length; itemIndex++) {
+									if (items[0].json.prompt_detected[itemIndex] === true) {
+										messageBlocked += items[0].json.prompt_detected.keys($json)[itemIndex];
+								}
+							}
+
+						
 							//const promptDetected = items[0].json.prompt_detected;
 							const promptDetected = $input.last().json.items[0];
 							const agent = promptDetected[0];
@@ -425,43 +426,43 @@ export class PrismaAIRSCheck implements INodeType {
 		// Prisma AIRS Response Inspection
     if (items[0].json.hasOwnProperty('output')) {
 				for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
-				const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
-	      const outPut = this.getNodeParameter('outPut', itemIndex) as string;
-	      const aiProfileNameOutput = this.getNodeParameter('aiProfileNameOutput', itemIndex) as string;
-				const appUser = this.getNodeParameter('appUser', itemIndex) as string;
-				const userIP = this.getNodeParameter('userIP', itemIndex) as string;
-				const appName = this.getNodeParameter('appName', itemIndex) as string;
-				const aiModel = this.getNodeParameter('aiModel', itemIndex) as string;
-	
-	      const credentials = await this.getCredentials('prismaAIRSApi') as { apiKey: string };
-	      const apiKey = credentials.apiKey;
-	
-	      const requestOptions: IHttpRequestOptions = {
-	        method: 'POST' as IHttpRequestMethods,
-	        url: 'https://service.api.aisecurity.paloaltonetworks.com/v1/scan/sync/request',
-	        headers: {
-	          'Content-Type': 'application/json',
-	          'x-pan-token': apiKey,
-	        },
-	        body: {
-	          tr_id: sessionId,
-	          ai_profile: {
-	            profile_name: aiProfileNameOutput,
-	          },
-	          metadata: {
-	            app_name: appName,
-	            app_user: appUser,
-							ai_model: aiModel,
-							user_ip: userIP,
-	          },
-	          contents: [
-	            {
-	              response: outPut,
-	            },
-	          ],
-	        },
-	        json: true, // Automatically parse JSON response
-	      };
+					const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
+		      const outPut = this.getNodeParameter('outPut', itemIndex) as string;
+		      const aiProfileNameOutput = this.getNodeParameter('aiProfileNameOutput', itemIndex) as string;
+					const appUser = this.getNodeParameter('appUser', itemIndex) as string;
+					const userIP = this.getNodeParameter('userIP', itemIndex) as string;
+					const appName = this.getNodeParameter('appName', itemIndex) as string;
+					const aiModel = this.getNodeParameter('aiModel', itemIndex) as string;
+		
+		      const credentials = await this.getCredentials('prismaAIRSApi') as { apiKey: string };
+		      const apiKey = credentials.apiKey;
+		
+		      const requestOptions: IHttpRequestOptions = {
+		        method: 'POST' as IHttpRequestMethods,
+		        url: 'https://service.api.aisecurity.paloaltonetworks.com/v1/scan/sync/request',
+		        headers: {
+		          'Content-Type': 'application/json',
+		          'x-pan-token': apiKey,
+		        },
+		        body: {
+		          tr_id: sessionId,
+		          ai_profile: {
+		            profile_name: aiProfileNameOutput,
+		          },
+		          metadata: {
+		            app_name: appName,
+		            app_user: appUser,
+								ai_model: aiModel,
+								user_ip: userIP,
+		          },
+		          contents: [
+		            {
+		              response: outPut,
+		            },
+		          ],
+		        },
+		        json: true, // Automatically parse JSON response
+	      	};
 	
 	      try {
 	        // Pass message to Prisma AIRS API Intercept for inspection
