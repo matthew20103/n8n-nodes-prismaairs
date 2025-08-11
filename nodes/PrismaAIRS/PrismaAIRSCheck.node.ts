@@ -209,22 +209,8 @@ export class PrismaAIRSCheck implements INodeType {
 					},
 				},
 			},
-	
 			{
-				displayName: 'AI Agent Attack Message',
-				name: 'aiAgentAttackMessage',
-				type: 'string',
-				default: 'Palo Alto Networks Prisma AIRS detected an attack. Please redefine your questions.',
-				description: 'The message output when AI Agent attack is detected.',
-				required: true,
-				displayOptions: {
-					show: {
-						operation: ['Prisma AIRS Inspection Result'],
-					},
-				},
-			},
-			{
-				displayName: 'Prompt Injection Attack Message',
+				displayName: 'Custom Your Block Message',
 				name: 'promptInjectionAttackMessage',
 				type: 'string',
 				default: 'Palo Alto Networks Prisma AIRS detected an attack. Please redefine your questions.',
@@ -236,59 +222,6 @@ export class PrismaAIRSCheck implements INodeType {
 					},
 				},
 			},
-			{
-				displayName: 'Toxic Content Message',
-				name: 'toxicContentMessage',
-				type: 'string',
-				default: 'Palo Alto Networks Prisma AIRS detected an attack. Please redefine your questions.',
-				description: 'The message output when Toxic Content is detected.',
-				required: true,
-				displayOptions: {
-					show: {
-						operation: ['Prisma AIRS Inspection Result'],
-					},
-				},
-			},
-			{
-				displayName: 'Malicious Code Message',
-				name: 'maliciousCodeMessage',
-				type: 'string',
-				default: 'Palo Alto Networks Prisma AIRS detected an attack. Please redefine your questions.',
-				description: 'The message output when Malicious Code is detected.',
-				required: true,
-				displayOptions: {
-					show: {
-						operation: ['Prisma AIRS Inspection Result'],
-					},
-				},
-			},
-			{
-				displayName: 'Malicious URL Message',
-				name: 'maliciousURLMessage',
-				type: 'string',
-				default: 'Palo Alto Networks Prisma AIRS detected an attack. Please redefine your questions.',
-				description: 'The message output when Malicious URL is detected.',
-				required: true,
-				displayOptions: {
-					show: {
-						operation: ['Prisma AIRS Inspection Result'],
-					},
-				},
-			},
-			{
-				displayName: 'DLP Message',
-				name: 'dlpMessage',
-				type: 'string',
-				default: 'Palo Alto Networks Prisma AIRS detected a Sensitive Data Leakage. Please redefine your questions.',
-				description: 'The message output when Sensitive Data is detected.',
-				required: true,
-				displayOptions: {
-					show: {
-						operation: ['Prisma AIRS Inspection Result'],
-					},
-				},
-			},
-			
 		],
 	};
 	
@@ -310,33 +243,7 @@ export class PrismaAIRSCheck implements INodeType {
 							return this.prepareOutputData(returnData);
 							break;
 						case 'block':
-							let messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
-							interface PromptDetected {
-	       			 	agent?: string;
-	        			dlp?: string;
-				        injection?: string;
-				        malicious_code?: string;
-				        toxic_content?: string;
-				        url_cats?: string;
-				    	}
-							const promptDetected = items[0].json.prompt_detected as JSON;
-							if (promptDetected && typeof promptDetected === 'object') {
-								const parsedPrompt = promptDetected as PromptDetected;
-								if (parsedPrompt.agent === 'true') {
-									messageBlocked = this.getNodeParameter('aiAgentAttackMessage', 0) as string;
-								} else if (parsedPrompt.injection === 'true') {
-									messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
-								} else if (parsedPrompt.toxic_content === 'true') {
-									messageBlocked = this.getNodeParameter('toxicContentMessage', 0) as string;
-								} else if (parsedPrompt.malicious_code === 'true') {
-									messageBlocked = this.getNodeParameter('maliciousCodeMessage', 0) as string;
-								} else if (parsedPrompt.url_cats === 'true') {
-									messageBlocked = this.getNodeParameter('maliciousURLMessage', 0) as string;
-								} else if (parsedPrompt.dlp === 'true') {
-									messageBlocked = this.getNodeParameter('dlpMessage', 0) as string;
-								} else {
-								}
-							}
+							const messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
 							returnData.push({
 								json: {
 									output: messageBlocked,
@@ -373,38 +280,7 @@ export class PrismaAIRSCheck implements INodeType {
 						break;
 					// For the case where AI attack is found, return the block message to json key output.
 					case 'block':
-							let messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
-							if (items[0].json.prompt_detected.length > 0) {
-								messageBlocked = 'Palo Alto Networks Prisma AIRS has detected '
-								for (let itemIndex = 0; itemIndex < items[0].json.prompt_detected.length; itemIndex++) {
-									if (items[0].json.prompt_detected[itemIndex] === true) {
-										messageBlocked += items[0].json.prompt_detected.keys($json)[itemIndex];
-									}
-								}
-							}
-
-						
-							//const promptDetected = items[0].json.prompt_detected;
-							const promptDetected = $input.last().json.items[0];
-							const agent = promptDetected[0];
-						
-							if (promptDetected && typeof promptDetected === 'object') {
-								const parsedPrompt = promptDetected as PromptDetected;
-								if (parsedPrompt.agent === 'true') {
-									messageBlocked = this.getNodeParameter('aiAgentAttackMessage', 0) as string;
-								} else if (parsedPrompt.injection === 'true') {
-									messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
-								} else if (parsedPrompt.toxic_content === 'true') {
-									messageBlocked = this.getNodeParameter('toxicContentMessage', 0) as string;
-								} else if (parsedPrompt.malicious_code === 'true') {
-									messageBlocked = this.getNodeParameter('maliciousCodeMessage', 0) as string;
-								} else if (parsedPrompt.url_cats === 'true') {
-									messageBlocked = this.getNodeParameter('maliciousURLMessage', 0) as string;
-								} else if (parsedPrompt.dlp === 'true') {
-									messageBlocked = this.getNodeParameter('dlpMessage', 0) as string;
-								} else {
-								}
-							}
+							const messageBlocked = this.getNodeParameter('promptInjectionAttackMessage', 0) as string;
 							returnData.push({
 								json: {
 									output: messageBlocked,
