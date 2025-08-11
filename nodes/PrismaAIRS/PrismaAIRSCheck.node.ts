@@ -96,21 +96,9 @@ export class PrismaAIRSCheck implements INodeType {
 				],
 				default: '',
 			},
-			
+
 			{
-				displayName: 'Session ID',
-				name: 'sessionId',
-				type: 'string',
-				default: '={{ $json.sessionId }}',
-				description: 'Unique identifier for the current chat session.',
-				displayOptions: {
-					show: {
-						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
-					},
-				},
-			},
-			{
-				displayName: 'Prompt',
+				displayName: 'Prompt (Required)',
 				name: 'chatInput',
 				type: 'string',
 				default: '={{ $json.chatInput }}',
@@ -123,7 +111,7 @@ export class PrismaAIRSCheck implements INodeType {
 				},
 			},
 			{
-				displayName: 'Response',
+				displayName: 'Response (Required)',
 				name: 'outPut',
 				type: 'string',
 				default: '={{ $json.output }}',
@@ -136,7 +124,7 @@ export class PrismaAIRSCheck implements INodeType {
 				},
 			},
 			{
-				displayName: 'Prisma AIRS AI Profile for Input',
+				displayName: 'Prisma AIRS AI Profile for Input (Required)',
 				name: 'aiProfileNameInput',
 				type: 'string',
 				default: 'Demo-Profile-for-Input',
@@ -149,7 +137,7 @@ export class PrismaAIRSCheck implements INodeType {
 				},
 			},
 			{
-				displayName: 'Prisma AIRS AI Profile for Output',
+				displayName: 'Prisma AIRS AI Profile for Output (Required)',
 				name: 'aiProfileNameOutput',
 				type: 'string',
 				default: 'Demo-Profile-for-Output',
@@ -161,7 +149,67 @@ export class PrismaAIRSCheck implements INodeType {
 					},
 				},
 			},
-
+			{
+				displayName: 'Session ID (Optional)',
+				name: 'sessionId',
+				type: 'string',
+				default: '={{ $json.sessionId }}',
+				description: 'Unique identifier for the current chat session.',
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
+					},
+				},
+			},
+			{
+				displayName: 'App User (Optional)',
+				name: 'appUser',
+				type: 'string',
+				default: '',
+				description: 'User name for the current chat session.',
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
+					},
+				},
+			},
+			{
+				displayName: 'User IP (Optional)',
+				name: 'userIP',
+				type: 'string',
+				default: '',
+				description: 'User IP address for the current chat session.',
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
+					},
+				},
+			},
+			{
+				displayName: 'App Name (Optional)',
+				name: 'appName',
+				type: 'string',
+				default: '',
+				description: 'Application name for the current chat session.',
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
+					},
+				},
+			},
+			{
+				displayName: 'AI Model Name (Optional)',
+				name: 'aiModel',
+				type: 'string',
+				default: '',
+				description: 'AI Model name for the current chat session.',
+				displayOptions: {
+					show: {
+						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
+					},
+				},
+			},
+	
 			{
 				displayName: 'AI Agent Attack Message',
 				name: 'aiAgentAttackMessage',
@@ -377,6 +425,10 @@ export class PrismaAIRSCheck implements INodeType {
 				const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
 	      const outPut = this.getNodeParameter('outPut', itemIndex) as string;
 	      const aiProfileNameOutput = this.getNodeParameter('aiProfileNameOutput', itemIndex) as string;
+				const appUser = this.getNodeParameter('appUser', itemIndex) as string;
+				const userIP = this.getNodeParameter('userIP', itemIndex) as string;
+				const appName = this.getNodeParameter('appName', itemIndex) as string;
+				const aiModel = this.getNodeParameter('aiModel', itemIndex) as string;
 	
 	      const credentials = await this.getCredentials('prismaAIRSApi') as { apiKey: string };
 	      const apiKey = credentials.apiKey;
@@ -394,8 +446,10 @@ export class PrismaAIRSCheck implements INodeType {
 	            profile_name: aiProfileNameOutput,
 	          },
 	          metadata: {
-	            app_name: 'n8n',
-	            app_user: 'AI Agent',
+	            app_name: appName,
+	            app_user: appUser,
+							ai_model: aiModel,
+							user_ip: userIP,
 	          },
 	          contents: [
 	            {
@@ -450,6 +504,10 @@ export class PrismaAIRSCheck implements INodeType {
 				const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
 	      const chatInput = this.getNodeParameter('chatInput', itemIndex) as string;
 	      const aiProfileNameInput = this.getNodeParameter('aiProfileNameInput', itemIndex) as string;
+				const appUser = this.getNodeParameter('appUser', itemIndex) as string;
+				const userIP = this.getNodeParameter('userIP', itemIndex) as string;
+				const appName = this.getNodeParameter('appName', itemIndex) as string;
+				const aiModel = this.getNodeParameter('aiModel', itemIndex) as string;
 	
 	      const credentials = await this.getCredentials('prismaAIRSApi') as { apiKey: string };
 	      const apiKey = credentials.apiKey;
@@ -467,8 +525,10 @@ export class PrismaAIRSCheck implements INodeType {
 	            profile_name: aiProfileNameInput,
 	          },
 	          metadata: {
-	            app_name: 'n8n',
-	            app_user: sessionId,
+	            app_name: appName,
+	            app_user: appUser,
+							ai_model: aiModel,
+							user_ip: userIP,
 	          },
 	          contents: [
 	            {
