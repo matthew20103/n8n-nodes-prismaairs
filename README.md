@@ -86,4 +86,4 @@ npm link n8n-nodes-prismaairs
 
 ## License
 
-[MIT](https://github.com/langfuse/n8n-nodes-langfuse/blob/master/LICENSE.md)
+MIT
