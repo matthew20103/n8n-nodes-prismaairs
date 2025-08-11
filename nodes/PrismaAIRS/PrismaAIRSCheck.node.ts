@@ -118,7 +118,7 @@ export class PrismaAIRSCheck implements INodeType {
 				required: true,
 				displayOptions: {
 					show: {
-						operation: ['Prisma AIRS Prompt Inspection'],
+						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
 					},
 				},
 			},
@@ -374,6 +374,7 @@ export class PrismaAIRSCheck implements INodeType {
 		// Prisma AIRS Response Inspection
     if (items[0].json.hasOwnProperty('output')) {
 				for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
+				const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
 	      const outPut = this.getNodeParameter('outPut', itemIndex) as string;
 	      const aiProfileNameOutput = this.getNodeParameter('aiProfileNameOutput', itemIndex) as string;
 	
@@ -388,7 +389,7 @@ export class PrismaAIRSCheck implements INodeType {
 	          'x-pan-token': apiKey,
 	        },
 	        body: {
-	          tr_id: '',
+	          tr_id: sessionId,
 	          ai_profile: {
 	            profile_name: aiProfileNameOutput,
 	          },
@@ -398,7 +399,7 @@ export class PrismaAIRSCheck implements INodeType {
 	          },
 	          contents: [
 	            {
-	              prompt: outPut,
+	              response: outPut,
 	            },
 	          ],
 	        },
