@@ -105,7 +105,7 @@ export class PrismaAIRSCheck implements INodeType {
 				description: 'Unique identifier for the current chat session.',
 				displayOptions: {
 					show: {
-						operation: ['Prisma AIRS Prompt Inspection'],
+						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
 					},
 				},
 			},
@@ -118,7 +118,7 @@ export class PrismaAIRSCheck implements INodeType {
 				required: true,
 				displayOptions: {
 					show: {
-						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
+						operation: ['Prisma AIRS Prompt Inspection'],
 					},
 				},
 			},
