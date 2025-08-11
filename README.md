@@ -28,16 +28,18 @@ This is a verified community node. Search for `Prisma AIRS` to use this node in 
 
 ## Operations
 
-### Get Prompt
+### Set up Prisma AIRS Inspection
 
 This node can be used call the Prisma AIRS API Intercept for protection on prompt injection, AI Agent attacks, database security attack, Data Loss Prevention, Malicious Code generation, Malicious URLs prevention, and more. See [Prisma AIRS API Intercept](https://pan.dev/airs/).
 
 Steps
 
-1. Enter the `name` of the prompt
-2. Enter the `label` that identifies the prompt version that you want to fetch. Defaults to "production".
+1. Choose `Prisma AIRS Prompt Inspection` or `Prisma AIRS Response Inspection` from the Actions list.
+2. Enter the required fields and connect to your chat / API webhook or AI Agent for security inspection.
+3. If it is for Prompt inspection, create an IF logic node for case allow or block.
+4. Choose `Prisma AIRS Inspection Result` to handle the inspection result or AI Agent response message.
 
-_Example workflow that retrieves the system prompt for the agent from Langfuse:_
+_Example workflow that secure the prompt and response of your AI Agent:_
 
 ![n8n-changelog](https://github.com/matthew20103/n8n-nodes-prismaairs/blob/741c563d882af6f4b76f7ea78c02cbb81dd0ace5/Prisma%20AIRS%20n8n%20Sample.png)
 
@@ -46,7 +48,7 @@ _Example workflow that retrieves the system prompt for the agent from Langfuse:_
 To use this node, you need to authenticate with Prisma AIRS. You'll need:
 
 1. A Prisma AIRS account, from [Strata Cloud Manager](https://stratacloudmanager.paloaltonetworks.com/).
-2. API credentials from your Prisma AIRS project settings: API key.
+2. Follow this document to get your API Key and API security profile. [Prisma AIRS Admin Guide](https://docs.paloaltonetworks.com/ai-runtime-security/administration/prevent-network-security-threats/airs-apirs-manage-api-keys-profile-apps)
 
 ## Development
 
