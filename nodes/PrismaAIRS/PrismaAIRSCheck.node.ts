@@ -216,6 +216,7 @@ export class PrismaAIRSCheck implements INodeType {
 				default: 'Palo Alto Networks Prisma AIRS detected an attack. Please redefine your questions.',
 				description: 'The message output when Prompt Injection attack is detected.',
 				required: true,
+				typeOptions: {rows: 3},
 				displayOptions: {
 					show: {
 						operation: ['Prisma AIRS Inspection Result'],
