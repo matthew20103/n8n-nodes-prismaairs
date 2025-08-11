@@ -8,7 +8,7 @@ import {
 	INodeExecutionData,
 } from 'n8n-workflow';
 
-export class PrismaAIRSCheck implements INodeType {
+export class Prismaairs implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Prisma AIRS',
 		name: 'prismaairs',
@@ -41,7 +41,6 @@ export class PrismaAIRSCheck implements INodeType {
 					{
 						name: 'Default',
 						value: 'Default',
-						description: '',
 					},
 				],
 				default: '',
@@ -60,7 +59,7 @@ export class PrismaAIRSCheck implements INodeType {
 					{
 						name: 'Prisma AIRS Prompt Inspection',
 						value: 'Prisma AIRS Prompt Inspection',
-						action: 'Prisma AIRS Prompt Inspection',
+						action: 'Prisma AIRS prompt inspection',
 						description: 'Prompt Protection Node',
 						routing: {
 							request: {
@@ -72,7 +71,7 @@ export class PrismaAIRSCheck implements INodeType {
 					{
 						name: 'Prisma AIRS Response Inspection',
 						value: 'Prisma AIRS Response Inspection',
-						action: 'Prisma AIRS Response Inspection',
+						action: 'Prisma AIRS response inspection',
 						description: 'Response Protection Node',
 						routing: {
 							request: {
@@ -84,7 +83,7 @@ export class PrismaAIRSCheck implements INodeType {
 					{
 						name: 'Prisma AIRS Inspection Result',
 						value: 'Prisma AIRS Inspection Result',
-						action: 'Prisma AIRS Inspection Result',
+						action: 'Prisma AIRS inspection result',
 						description: 'Inspection Result for Block Action',
 						routing: {
 							request: {
@@ -94,7 +93,7 @@ export class PrismaAIRSCheck implements INodeType {
 						},
 					},
 				],
-				default: '',
+				default: 'Prisma AIRS Prompt Inspection',
 			},
 
 			{
@@ -128,7 +127,7 @@ export class PrismaAIRSCheck implements INodeType {
 				name: 'aiProfileNameInput',
 				type: 'string',
 				default: 'Demo-Profile-for-Input',
-				description: 'The Prisma AIRS AI profile name configured for input scanning.',
+				description: 'The Prisma AIRS AI profile name configured for input scanning',
 				required: true,
 				displayOptions: {
 					show: {
@@ -141,7 +140,7 @@ export class PrismaAIRSCheck implements INodeType {
 				name: 'aiProfileNameOutput',
 				type: 'string',
 				default: 'Demo-Profile-for-Output',
-				description: 'The Prisma AIRS AI profile name configured for output scanning.',
+				description: 'The Prisma AIRS AI profile name configured for output scanning',
 				required: true,
 				displayOptions: {
 					show: {
@@ -154,7 +153,7 @@ export class PrismaAIRSCheck implements INodeType {
 				name: 'sessionId',
 				type: 'string',
 				default: '={{ $json.sessionId }}',
-				description: 'Unique identifier for the current chat session.',
+				description: 'Unique identifier for the current chat session',
 				displayOptions: {
 					show: {
 						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
@@ -166,7 +165,7 @@ export class PrismaAIRSCheck implements INodeType {
 				name: 'appUser',
 				type: 'string',
 				default: '',
-				description: 'User name for the current chat session.',
+				description: 'User name for the current chat session',
 				displayOptions: {
 					show: {
 						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
@@ -178,7 +177,7 @@ export class PrismaAIRSCheck implements INodeType {
 				name: 'userIP',
 				type: 'string',
 				default: '',
-				description: 'User IP address for the current chat session.',
+				description: 'User IP address for the current chat session',
 				displayOptions: {
 					show: {
 						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
@@ -190,7 +189,7 @@ export class PrismaAIRSCheck implements INodeType {
 				name: 'appName',
 				type: 'string',
 				default: '',
-				description: 'Application name for the current chat session.',
+				description: 'Application name for the current chat session',
 				displayOptions: {
 					show: {
 						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
@@ -202,7 +201,7 @@ export class PrismaAIRSCheck implements INodeType {
 				name: 'aiModel',
 				type: 'string',
 				default: '',
-				description: 'AI Model name for the current chat session.',
+				description: 'AI Model name for the current chat session',
 				displayOptions: {
 					show: {
 						operation: ['Prisma AIRS Prompt Inspection', 'Prisma AIRS Response Inspection'],
@@ -214,7 +213,7 @@ export class PrismaAIRSCheck implements INodeType {
 				name: 'promptInjectionAttackMessage',
 				type: 'string',
 				default: 'Palo Alto Networks Prisma AIRS detected an attack. Please redefine your questions.',
-				description: 'The message output when Prompt Injection attack is detected.',
+				description: 'The message output when Prompt Injection attack is detected',
 				required: true,
 				typeOptions: {rows: 3},
 				displayOptions: {
