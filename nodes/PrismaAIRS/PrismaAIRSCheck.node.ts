@@ -379,6 +379,7 @@ export class PrismaAIRSCheck implements INodeType {
 								for (let itemIndex = 0; itemIndex < items[0].json.prompt_detected.length; itemIndex++) {
 									if (items[0].json.prompt_detected[itemIndex] === true) {
 										messageBlocked += items[0].json.prompt_detected.keys($json)[itemIndex];
+									}
 								}
 							}
 
