@@ -1,5 +1,5 @@
 {
-	"name": "@prismaairs/n8n-nodes-prismaairs",
+	"name": "n8n-nodes-prismaairs",
 	"version": "1.0.0",
 	"description": "Prisma AIRS nodes for n8n",
 	"keywords": [
