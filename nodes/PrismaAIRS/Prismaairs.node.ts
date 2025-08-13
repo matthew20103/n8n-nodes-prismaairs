@@ -347,12 +347,12 @@ export class Prismaairs implements INodeType {
 	
 	        // Process the AIRS response
 					const action = response.action;
-					const prompt_detected = response.prompt_detected;
+					const response_detected = response.prompt_detected;
 					returnData.push({
 							json: {
 								output: outPut,
 								prismaAIRSAction: action,
-								prompt_detected: prompt_detected,
+								response_detected: response_detected,
 							}
 					});
 					return this.prepareOutputData(returnData);
