@@ -282,7 +282,7 @@ export class Prismaairs implements INodeType {
 									}
 							}); */
 							
-							if (prompt_masked_data === null) {
+							if prompt_masked_data.get('data') is None {
 								returnData.push({
 									json: {
 										sessionId: sessionId,
