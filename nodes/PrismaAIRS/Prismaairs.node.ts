@@ -278,7 +278,13 @@ export class Prismaairs implements INodeType {
 				const prismaAIRSAction = items[0].json.prismaAIRSAction;
 				const message = items[0].json.chatInput;
 				const sessionId = items[0].json.sessionId;
-				const prompt_masked_data = items[0]?.json.prompt_masked_data;
+				
+				interface MaskedResult {
+					data: string;
+					[key: string]: any;
+				}
+				
+				const prompt_masked_data: MaskedResult = items[0]?.json.prompt_masked_data;
 
 				
 				switch (prismaAIRSAction) {
