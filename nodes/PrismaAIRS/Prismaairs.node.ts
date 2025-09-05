@@ -229,15 +229,6 @@ export class Prismaairs implements INodeType {
     const items = this.getInputData();
     const returnData: INodeExecutionData[] = [];
 
-		/*
-		const jsonInput = items[0]?.json;
-		if (!jsonInput || typeof jsonInput.prismaAIRSAction !== 'string') {
-        // If there's no json or no action, exit early
-        return this.prepareOutputData([]);
-    }*/
-
-		//const { prismaAIRSAction } = jsonInput;
-
 		if (items[0].json.hasOwnProperty('prismaAIRSAction')) {
 			
 			// Handles response inspection result
