@@ -229,6 +229,15 @@ export class Prismaairs implements INodeType {
     const items = this.getInputData();
     const returnData: INodeExecutionData[] = [];
 
+		/*
+		const jsonInput = items[0]?.json;
+		if (!jsonInput || typeof jsonInput.prismaAIRSAction !== 'string') {
+        // If there's no json or no action, exit early
+        return this.prepareOutputData([]);
+    }*/
+
+		//const { prismaAIRSAction } = jsonInput;
+
 		if (items[0].json.hasOwnProperty('prismaAIRSAction')) {
 			
 			// Handles response inspection result
@@ -269,18 +278,8 @@ export class Prismaairs implements INodeType {
 				const prismaAIRSAction = items[0].json.prismaAIRSAction;
 				const message = items[0].json.chatInput;
 				const sessionId = items[0].json.sessionId;
+				const prompt_masked_data = items[0]?.json.prompt_masked_data;
 
-				/*
-				interface Prompt_masked_data {
-					data: string;
-					[key: string]: any; // Allows any string key with any value type
-				}*/
-
-				let prompt_masked_data: string = '';
-				if (items[0].json.prompt_masked_data.hasOwnProperty('data')) {
-					prompt_masked_data = items[0].json.prompt_masked_data.data;
-				}
-				
 				
 				switch (prismaAIRSAction) {
 					case 'allow':
@@ -293,7 +292,7 @@ export class Prismaairs implements INodeType {
 									}
 							}); */
 							
-							if (prompt_masked_data.hasOwnProperty('data')) {
+							if (typeof prompt_masked_data.data !== 'undefined') {
 								returnData.push({
 									json: {
 										sessionId: sessionId,
