@@ -270,41 +270,14 @@ export class Prismaairs implements INodeType {
 				const message = items[0].json.chatInput;
 				const sessionId = items[0].json.sessionId;
 				
-				interface MaskedResult {
-					data: string;
-					[key: string]: any;
-				}
-				
-				const prompt_masked_data: MaskedResult = items[0]?.json.prompt_masked_data;
-
-				
 				switch (prismaAIRSAction) {
 					case 'allow':
-							// For the case of handling Prisma AIRS Prompt Inspection, return both sessionId and chatInput as json keys.
-							/*
-							returnData.push({
-									json: {
-										sessionId: sessionId,
-										chatInput: message,
-									}
-							}); */
-							
-							if (typeof prompt_masked_data !== 'null' && typeof prompt_masked_data.data === 'string') {
-								returnData.push({
-									json: {
-										sessionId: sessionId,
-										chatInput: prompt_masked_data.data,
-									}
-								});
-							}
-							else {
-								returnData.push({
+						returnData.push({
 									json: {
 										sessionId: sessionId,
 										chatInput: message,
 									}
 								});
-							}
 						return this.prepareOutputData(returnData);
 						break;
 					// For the case where AI attack is found, return the block message to json key output.
