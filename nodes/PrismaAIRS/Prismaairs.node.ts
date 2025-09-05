@@ -274,13 +274,14 @@ export class Prismaairs implements INodeType {
 				switch (prismaAIRSAction) {
 					case 'allow':
 							// For the case of handling Prisma AIRS Prompt Inspection, return both sessionId and chatInput as json keys.
+							/*
 							returnData.push({
 									json: {
 										sessionId: sessionId,
 										chatInput: message,
 									}
-							});
-							/**
+							}); */
+							
 							if (prompt_masked_data !=== null) {
 								returnData.push({
 									json: {
@@ -296,7 +297,7 @@ export class Prismaairs implements INodeType {
 										chatInput: prompt_masked_data.data,
 									}
 								});
-							} **/
+							}
 						return this.prepareOutputData(returnData);
 						break;
 					// For the case where AI attack is found, return the block message to json key output.
@@ -377,7 +378,7 @@ export class Prismaairs implements INodeType {
 								prismaAIRSAction: action,
 								response_detected: response_detected,
 								response_masked_data: response_masked_data,
-								response_detection_details = response_detection_details,
+								response_detection_details: response_detection_details,
 							}
 					});
 					return this.prepareOutputData(returnData);
