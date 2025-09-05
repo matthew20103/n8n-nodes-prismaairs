@@ -230,6 +230,8 @@ export class Prismaairs implements INodeType {
     const returnData: INodeExecutionData[] = [];
 
 		if (items[0].json.hasOwnProperty('prismaAIRSAction')) {
+			
+			// Handles response inspection result
 			if (items[0].json.hasOwnProperty('output')) {
 				const prismaAIRSAction = items[0].json.prismaAIRSAction;
 				const message = items[0].json.output;
@@ -262,20 +264,32 @@ export class Prismaairs implements INodeType {
 						}
 			}
 
+			// Handles prompt inspection result
 			if (items[0].json.hasOwnProperty('chatInput')) {
 				const prismaAIRSAction = items[0].json.prismaAIRSAction;
 				const message = items[0].json.chatInput;
 				const sessionId = items[0].json.sessionId;
+				const prompt_masked_data = items[0].json.prompt_masked_data;
 				
 				switch (prismaAIRSAction) {
 					case 'allow':
 							// For the case of handling Prisma AIRS Prompt Inspection, return both sessionId and chatInput as json keys.
-							returnData.push({
-								json: {
-									sessionId: sessionId,
-									chatInput: message,
-								}
-							});
+							if (prompt_masked_data !=== null) {
+								returnData.push({
+									json: {
+										sessionId: sessionId,
+										chatInput: message,
+									}
+								});
+							}
+							else {
+								returnData.push({
+									json: {
+										sessionId: sessionId,
+										chatInput: prompt_masked_data.data,
+									}
+								});
+							}
 						return this.prepareOutputData(returnData);
 						break;
 					// For the case where AI attack is found, return the block message to json key output.
@@ -348,11 +362,15 @@ export class Prismaairs implements INodeType {
 	        // Process the AIRS response
 					const action = response.action;
 					const response_detected = response.response_detected;
+					const response_masked_data = response.response_masked_data;
+					const response_detection_details = response.response_detection_details;
 					returnData.push({
 							json: {
 								output: outPut,
 								prismaAIRSAction: action,
 								response_detected: response_detected,
+								response_masked_data: response_masked_data,
+								response_detection_details = response_detection_details,
 							}
 					});
 					return this.prepareOutputData(returnData);
@@ -380,6 +398,7 @@ export class Prismaairs implements INodeType {
 			}
 		}
 
+		// Prisma AIRS Prompt Inspection
 		if (items[0].json.hasOwnProperty('chatInput')) {
 			for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 				const sessionId = this.getNodeParameter('sessionId', itemIndex) as string;
@@ -427,12 +446,16 @@ export class Prismaairs implements INodeType {
 	        // Process the AIRS response
 					const action = response.action;
 					const prompt_detected = response.prompt_detected;
+					const prompt_masked_data = response.prompt_masked_data;
+					const prompt_detection_details = response.prompt_detection_details;
 					returnData.push({
 							json: {
 								sessionId: sessionId,
 								chatInput: chatInput,
 								prismaAIRSAction: action,
 								prompt_detected: prompt_detected,
+								prompt_masked_data: prompt_masked_data,
+								prompt_detection_details: prompt_detection_details,
 							}
 					});
 					return this.prepareOutputData(returnData);
