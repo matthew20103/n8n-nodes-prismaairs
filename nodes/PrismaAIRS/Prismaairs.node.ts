@@ -269,7 +269,13 @@ export class Prismaairs implements INodeType {
 				const prismaAIRSAction = items[0].json.prismaAIRSAction;
 				const message = items[0].json.chatInput;
 				const sessionId = items[0].json.sessionId;
-				const prompt_masked_data = items[0].json.prompt_masked_data;
+
+				interface Prompt_masked_data {
+					data: string;
+					[key: string]: any; // Allows any string key with any value type
+				}
+				
+				const prompt_masked_data: Prompt_masked_data = items[0].json.prompt_masked_data;
 				
 				switch (prismaAIRSAction) {
 					case 'allow':
@@ -282,11 +288,11 @@ export class Prismaairs implements INodeType {
 									}
 							}); */
 							
-							if prompt_masked_data.get('data') is None {
+							if (prompt_masked_data.hasOwnProperty('data')) {
 								returnData.push({
 									json: {
 										sessionId: sessionId,
-										chatInput: message,
+										chatInput: prompt_masked_data.data,
 									}
 								});
 							}
@@ -294,7 +300,7 @@ export class Prismaairs implements INodeType {
 								returnData.push({
 									json: {
 										sessionId: sessionId,
-										chatInput: prompt_masked_data.data,
+										chatInput: message,
 									}
 								});
 							}
