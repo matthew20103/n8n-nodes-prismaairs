@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-prismaairs",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Prisma AIRS nodes for n8n",
 	"keywords": [
 		"n8n-community-node-package"
@@ -45,7 +45,8 @@
 		"eslint-plugin-n8n-nodes-base": "^1.16.3",
 		"gulp": "^5.0.0",
 		"prettier": "^3.5.3",
-		"typescript": "^5.8.2"
+		"typescript": "^5.8.2",
+		"n8n-workflow": "^1.82.0"
 	},
 	"peerDependencies": {
 		"n8n-workflow": "*"
